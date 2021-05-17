@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/tv-movie-search-app/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/tv-movie-search-app/static/js/main.e9d2dd6b.chunk.js",
-    "main.js.map": "/tv-movie-search-app/static/js/main.e9d2dd6b.chunk.js.map",
-    "runtime-main.js": "/tv-movie-search-app/static/js/runtime-main.b020d01a.js",
-    "runtime-main.js.map": "/tv-movie-search-app/static/js/runtime-main.b020d01a.js.map",
-    "static/js/2.6733c9e3.chunk.js": "/tv-movie-search-app/static/js/2.6733c9e3.chunk.js",
-    "static/js/2.6733c9e3.chunk.js.map": "/tv-movie-search-app/static/js/2.6733c9e3.chunk.js.map",
-    "static/js/3.a21294e6.chunk.js": "/tv-movie-search-app/static/js/3.a21294e6.chunk.js",
-    "static/js/3.a21294e6.chunk.js.map": "/tv-movie-search-app/static/js/3.a21294e6.chunk.js.map",
+    "main.css": "/tv-movie-search-app/static/css/main.a22e29b6.chunk.css",
+    "main.js": "/tv-movie-search-app/static/js/main.45dad836.chunk.js",
+    "main.js.map": "/tv-movie-search-app/static/js/main.45dad836.chunk.js.map",
+    "runtime-main.js": "/tv-movie-search-app/static/js/runtime-main.2486f6b3.js",
+    "runtime-main.js.map": "/tv-movie-search-app/static/js/runtime-main.2486f6b3.js.map",
+    "static/css/2.4c97ca4f.chunk.css": "/tv-movie-search-app/static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.7c8512ca.chunk.js": "/tv-movie-search-app/static/js/2.7c8512ca.chunk.js",
+    "static/js/2.7c8512ca.chunk.js.map": "/tv-movie-search-app/static/js/2.7c8512ca.chunk.js.map",
     "index.html": "/tv-movie-search-app/index.html",
-    "static/css/main.9d5b29c0.chunk.css.map": "/tv-movie-search-app/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.6733c9e3.chunk.js.LICENSE.txt": "/tv-movie-search-app/static/js/2.6733c9e3.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/tv-movie-search-app/static/media/logo.6ce24c58.svg"
+    "static/css/2.4c97ca4f.chunk.css.map": "/tv-movie-search-app/static/css/2.4c97ca4f.chunk.css.map",
+    "static/css/main.a22e29b6.chunk.css.map": "/tv-movie-search-app/static/css/main.a22e29b6.chunk.css.map",
+    "static/js/2.7c8512ca.chunk.js.LICENSE.txt": "/tv-movie-search-app/static/js/2.7c8512ca.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b020d01a.js",
-    "static/js/2.6733c9e3.chunk.js",
-    "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.e9d2dd6b.chunk.js"
+    "static/js/runtime-main.2486f6b3.js",
+    "static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.7c8512ca.chunk.js",
+    "static/css/main.a22e29b6.chunk.css",
+    "static/js/main.45dad836.chunk.js"
   ]
 }
