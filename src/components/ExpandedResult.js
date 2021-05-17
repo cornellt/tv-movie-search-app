@@ -52,7 +52,7 @@ class ExpandedResult extends React.Component {
         const resultType = this.props.data.media_type;
         const resultPosterPath = ((resultType === 'movie' || resultType === 'tv') ? result.poster_path : result.profile_path);
 
-        return (resultPosterPath) ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
+        return resultPosterPath ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
     }
 
     //return formatted String for each media_type
@@ -89,7 +89,7 @@ class ExpandedResult extends React.Component {
         const date = new Date(dateString);
         const formattedDateStr = date.toDateString();
         const formattedDateSplit = formattedDateStr.split(' ');
-        return `${formattedDateSplit[2]} ${formattedDateSplit[1]} ${formattedDateSplit[3]}`
+        return `${formattedDateSplit[2]} ${formattedDateSplit[1]} ${formattedDateSplit[3]}`;
     }
 
     //if budget data exists, build and return formatted budget info
@@ -122,9 +122,7 @@ class ExpandedResult extends React.Component {
     compilePersonData(result) {
         return {
             resultName: result.name,
-            resultPrimaryInfo: (
-                <h4>Biography</h4>
-            ),
+            resultPrimaryInfo: <h4>Biography</h4>,
             resultOverview: <Card.Text className='w-75 mx-auto'>{result.biography}</Card.Text>
         }
     }
