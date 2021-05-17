@@ -68,10 +68,11 @@ class ExpandedResult extends React.Component {
     }
 
     //convert plain currency number into formatted string
+    //formatting syntax sourced from https://www.samanthaming.com/tidbits/30-how-to-format-currency-in-es6/
     formatCurrency(value) {
         return new Intl.NumberFormat('en-US',
             { style: 'currency', currency: 'USD' }
-        ).format(value); //currency formatting sourced from https://www.samanthaming.com/tidbits/30-how-to-format-currency-in-es6/
+        ).format(value);
     }
 
     //convert mins to hr:min
@@ -251,7 +252,6 @@ class ExpandedResult extends React.Component {
     //call appropriate compileData method based on media_type
     compileItemJsx() {
         const resultType = this.props.data.media_type;
-        console.log(this.state.expandedData);
 
         if (resultType === 'movie')
             return this.compileMovieData(this.state.expandedData);
