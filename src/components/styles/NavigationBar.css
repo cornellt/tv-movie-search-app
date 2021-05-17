@@ -1,3 +1,4 @@
 .home-button:hover {
     cursor: pointer;
+    opacity: 80%;
 }

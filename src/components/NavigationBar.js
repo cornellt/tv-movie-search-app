@@ -32,10 +32,10 @@ class NavigationBar extends React.Component {
                 <Nav className='mr-auto'>
                 </Nav>
                 <Form inline onSubmit={this.handleSubmit}>
-                    <FormControl type='text' placeholder='Search for a TV show, Movie, or Actor' className='mr-sm-2' onChange={this.handleChange} value={this.state.text} />
+                    <FormControl type='text' placeholder='Search for a TV show, Movie, or Actor' htmlSize='36' className='mr-sm-1 text-center' onChange={this.handleChange} value={this.state.text} />
                     <Button variant='outline-secondary' onClick={this.handleSubmit}>Search</Button>
                 </Form>
-            </Navbar>
+            </Navbar >
         );
     }
 }

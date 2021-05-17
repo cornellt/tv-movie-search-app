@@ -12,7 +12,10 @@ hr {
 
 .attribution-logo {
     position: relative;
-    top: 80px;
     width: 100px; 
     height: 40px;
+}
+
+.footer-text {
+    color: white;
 }

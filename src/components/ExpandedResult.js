@@ -251,7 +251,6 @@ class ExpandedResult extends React.Component {
                     </Row>
                 </Card>
                 {this.buildRecommendationSectionJsx()}
-                <Card.Footer>"This product uses the TMDb API but is not endorsed or certified by TMDb."</Card.Footer>
             </Card>
         );
     }
