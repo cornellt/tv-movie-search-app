@@ -1,0 +1,21 @@
+.search {
+  color: white;
+}
+
+/* text align center for placeholder text borrowed from https://stackoverflow.com/questions/7381446/center-html-input-text-field-placeholder */
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+ 
+ :-moz-placeholder { /* Firefox 18- */
+    text-align: center;  
+ }
+ 
+ ::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;  
+ }
+ 
+ :-ms-input-placeholder {  
+    text-align: center; 
+ }
+ /* end citation */

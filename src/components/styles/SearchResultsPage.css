@@ -1,0 +1,18 @@
+.results-section {
+    position: relative;
+    top: 80px;
+    height: 90vh;
+    width: 98% !important;
+}
+
+hr {
+    color: #c4c2c1 !important;
+    border-color: #c4c2c1 !important;;
+}
+
+.attribution-logo {
+    position: relative;
+    top: 80px;
+    width: 100px; 
+    height: 40px;
+}

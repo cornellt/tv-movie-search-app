@@ -1,0 +1,21 @@
+.poster {
+    border-radius: 10px !important;
+}
+
+.inner-result-card {
+    border-radius: 10px !important;
+}
+
+.outer-result-card {
+    border-radius: 10px !important;
+    width: 70%;
+}
+
+.recommendation-card {
+    cursor: pointer;
+}
+
+.recommendation-card:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
