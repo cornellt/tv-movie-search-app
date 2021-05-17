@@ -5,8 +5,7 @@ import Container from 'react-bootstrap/Container'; //sourced from https://react-
 import Image from 'react-bootstrap/Image' //sourced from https://react-bootstrap.netlify.app/components/images/
 
 const HomePage = props => {
-    //Background image sourced from unsplash.com
-    const backgroundImageUrl = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80';
+    const backgroundImageUrl = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80'; //background image sourced from unsplash.com
 
     return (
         <>
@@ -16,7 +15,7 @@ const HomePage = props => {
                     <HomeSearchBox searchRequest={props.searchRequest} />
                 </Container>
             </Container>
-            <footer class="footer footer-dark mt-auto">
+            <footer className='footer footer-dark mt-auto'>
                 <div className='footer-text mt-1'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</div>
             </footer>
         </>

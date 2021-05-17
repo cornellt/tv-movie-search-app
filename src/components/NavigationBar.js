@@ -22,6 +22,9 @@ class NavigationBar extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.searchRequest(this.state.text);
+        this.setState({
+            text: ''
+        })
     }
 
     //Navbar component sourced from react-bootstrap

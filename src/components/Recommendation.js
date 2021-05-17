@@ -2,29 +2,27 @@ import React from 'react';
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+const PLACEHOLDER_POSTER_URL = 'https://fakeimg.pl/640x360'; //placeholder sourced from https://fakeimg.pl/640x360
 
 class Recommendation extends React.Component {
     //handler for Recommendation onClick; changes "focused" ExpandedResult
-    handleChangeFocus = () => {
-        this.props.handleChangeFocus(this.props.item);
-    }
+    handleChangeFocus = () => this.props.handleChangeFocus(this.props.data);
 
     //build URL to access movie/tv "backdrop" image
     buildBackdropUrl(path) {
-        return (path === null) ? 'https://fakeimg.pl/640x360' : (POSTER_BASE_URL + path); //placeholder sourced from https://fakeimg.pl/640x360
+        return path === null ? PLACEHOLDER_POSTER_URL : POSTER_BASE_URL + path;
     }
 
     render() {
-        let item = this.props.item;
-        let itemName = item.media_type === 'tv' ? item.name : item.title;
+        const recommendationData = this.props.data;
 
         return (
             <>
                 <Card key={this.props.index} className='recommendation-card shadow-sm' onClick={this.handleChangeFocus}>
-                    <Card.Img variant="top" src={this.buildBackdropUrl(item.backdrop_path)} />
+                    <Card.Img variant="top" src={this.buildBackdropUrl(recommendationData.backdrop_path)} />
                     <Card.Body>
-                        <Card.Title>{itemName}</Card.Title>
-                        <Card.Text>{item.overview}</Card.Text>
+                        <Card.Title>{recommendationData.media_type === 'tv' ? recommendationData.name : recommendationData.title}</Card.Title>
+                        <Card.Text>{recommendationData.overview}</Card.Text>
                     </Card.Body>
                 </Card>
             </>

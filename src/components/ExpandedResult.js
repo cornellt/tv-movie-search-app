@@ -24,14 +24,14 @@ class ExpandedResult extends React.Component {
     componentDidMount() { this.fetchData(this.props.data); }
 
     //handle changing "focused" ExpandedResult item (occurs when a recommendation is clicked on)
-    handleChangeFocus = (itemToFocus) => (this.fetchData(itemToFocus));
+    handleChangeFocus = (itemToFocus) => this.fetchData(itemToFocus);
 
     //handler for 'Return to Results' button; closes ExpandedResult and restores SearchResultsPage
-    handleReturnToResults = () => (this.props.handleReturnToResults());
+    handleReturnToResults = () => this.props.handleReturnToResults();
 
     //2nd AJAX Request: fetch full data for "expanded" Movie/TV Show/Person + appended recommendations data
     async fetchData(data) {
-        let resultDetailsRequestUrl = API_BASE_URL + data.media_type + '/' + data.id + '?api_key=' + SECRET_API_KEY + '&language=en-US&append_to_response=recommendations';
+        const resultDetailsRequestUrl = API_BASE_URL + data.media_type + '/' + data.id + '?api_key=' + SECRET_API_KEY + '&language=en-US&append_to_response=recommendations';
 
         try {
             const response = await axios.get(resultDetailsRequestUrl);
@@ -52,7 +52,6 @@ class ExpandedResult extends React.Component {
         const resultType = this.props.data.media_type;
         const resultPosterPath = ((resultType === 'movie' || resultType === 'tv') ? result.poster_path : result.profile_path);
 
-        //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
         return (resultPosterPath) ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
     }
 
@@ -68,15 +67,119 @@ class ExpandedResult extends React.Component {
             return 'Person';
     }
 
+    //convert plain currency number into formatted string
+    formatCurrency(value) {
+        return new Intl.NumberFormat('en-US',
+            { style: 'currency', currency: 'USD' }
+        ).format(value); //currency formatting sourced from https://www.samanthaming.com/tidbits/30-how-to-format-currency-in-es6/
+    }
+
+    //returns a formatted date string based on the ISO Date provided by the API
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        const formattedDateStr = date.toDateString();
+        const formattedDateSplit = formattedDateStr.split(' ');
+        return `${formattedDateSplit[2]} ${formattedDateSplit[1]} ${formattedDateSplit[3]}`
+    }
+
+    //if budget data exists, build and return formatted budget info
+    buildBudgetJsx(result) {
+        if (result.budget && result.budget > 0) {
+            const budget = this.formatCurrency(result.budget);
+            return <h5>Budget: {budget}</h5>;
+        }
+    }
+
+    //if revenue data exists, build and return formatted revenue info
+    buildBoxOfficeJsx(result) {
+        if (result.revenue && result.revenue > 0) {
+            const revenue = this.formatCurrency(result.revenue);
+            return <h5>Box Office Revenue: {revenue}</h5>;
+        }
+    }
+
+    //if both budget and revenue data exist, build and return net profit info with appropriate styling based on positive/negative value
+    buildNetProfitJsx(result) {
+        if ((result.revenue && result.revenue > 0) && (result.budget && result.budget > 0)) {
+            const net = (result.revenue - result.budget);
+            const formattedNet = this.formatCurrency(net);
+            const netStyling = (net >= 0) ? 'net-positive' : 'net-negative';
+            return <h5 className={netStyling}>Net Income: {formattedNet}</h5>;
+        }
+    }
+
+    //returns Object containing some compiled Person info/JSX for compileItemJsx() function
+    compilePersonData(result) {
+        return {
+            resultName: result.name,
+            resultPrimaryInfo: (
+                <h4>Biography</h4>
+            ),
+            resultOverview: <Card.Text className='w-75 mx-auto'>{result.biography}</Card.Text>
+        }
+    }
+
+    //returns Object containing some compiled Movie info/JSX for compileItemJsx() function
+    compileMovieData(result) {
+        return {
+            resultName: result.title,
+            resultPrimaryInfo: (
+                <>
+                    <h3>Release Date: {this.formatDate(result.release_date)}</h3>
+                    { (result.runtime > 0) ? (<h5>Runtime: {result.runtime} min</h5>) : null}
+                    {this.buildGenreList(result)}
+                    {this.buildHomepageJsx(result)}
+                    <hr />
+                    <span className='text-right'>
+                        {this.buildBudgetJsx(result)}
+                        {this.buildBoxOfficeJsx(result)}
+                        {this.buildNetProfitJsx(result)}
+                    </span>
+                    <hr />
+                    <h4>Overview</h4>
+                </>
+            ),
+            resultOverview: result.overview
+        }
+    }
+
+    //returns Object containing some compiled TV Show info/JSX for compileItemJsx() function
+    compileTvShowData(result) {
+        return {
+            resultName: result.name,
+            resultPrimaryInfo: (
+                <>
+                    <h3>First Air Date: {this.formatDate(result.first_air_date)}</h3>
+                    <h3>Last Air Date: {this.formatDate(result.last_air_date)}</h3>
+                    <h4>{result.in_production ? 'Still in production' : 'No longer in production'}</h4>
+                    {this.buildGenreList(result)}
+                    <br />
+                    <h5>Number of Seasons: {result.number_of_seasons}</h5>
+                    <h5>Number of Episodes: {result.number_of_episodes}</h5>
+                    {this.buildHomepageJsx(result)}
+                    <hr />
+                    <h4>Overview</h4>
+                </>
+            ),
+            resultOverview: (
+                <>
+                    <Card.Text className='w-75 mx-auto'>
+                        {result.overview}
+                    </Card.Text>
+                    {this.buildSeasonsTable()}
+                </>
+            )
+        }
+    }
+
     //Build react-bootstrap Table for TV Show seasons info
     buildSeasonsTable() {
         if (this.state.expandedData.seasons) {
-            const seasonArray = [];
+            const seasonArray = []; //const variables cannot be reassigned BUT are NOT immutable -- we can still mutate the array's properties
 
             this.state.expandedData.seasons.forEach(element => {
-                if (element.season_number !== 0) { //we ignore the 0th season's data because those are 'extra' episodes
+                if (element.season_number !== 0) //we ignore the 0th season's data because those are 'extra' episodes
                     seasonArray.push(element); //append season to end of seasonArray
-                }
             });
 
             return (
@@ -103,7 +206,7 @@ class ExpandedResult extends React.Component {
     //Build genre String + JSX for TV Show/Movie
     buildGenreList(data) {
         if (data.genres && data.genres.length > 0) {
-            let genreString = 'Genres: '
+            let genreString = 'Genre(s): '
 
             for (const genre of data.genres) {
                 genreString += (genre.name + ', ');
@@ -120,87 +223,15 @@ class ExpandedResult extends React.Component {
             return <h5><a href={result.homepage} target='_blank' rel="noreferrer">Link to Homepage</a></h5>;
     }
 
-    //returns Object containing some compiled Person info/JSX for compileItemJsx() function
-    compilePersonData(result) {
-        return {
-            resultName: result.name,
-            resultPrimaryInfo: (
-                <>
-                    <hr />
-                    <h4>Biography</h4>
-                </>
-            ),
-            resultOverview: (
-                <>
-                    <Card.Text className='w-75 mx-auto'>
-                        {result.biography}
-                    </Card.Text>
-                </>
-            )
-        }
-    }
-
-    //returns Object containing some compiled Movie info/JSX for compileItemJsx() function
-    compileMovieData(result) {
-        return {
-            resultName: result.title,
-
-            resultPrimaryInfo: (
-                <>
-                    <hr />
-                    <h3>Release Date: {result.release_date}</h3>
-                    { (result.runtime > 0) ? (<h5>Runtime: {result.runtime} min</h5>) : null}
-                    {this.buildGenreList(result)}
-                    {this.buildHomepageJsx(result)}
-                    <hr />
-                    <h4>Overview</h4>
-                </>
-            ),
-            resultOverview: (
-                result.overview
-            )
-        }
-    }
-
-    //returns Object containing some compiled TV Show info/JSX for compileItemJsx() function
-    compileTvShowData(result) {
-        return {
-            resultName: result.name,
-            resultPrimaryInfo: (
-                <>
-                    <hr />
-                    <h3>First Air Date: {result.first_air_date}</h3>
-                    <h3>Last Air Date: {result.last_air_date}</h3>
-                    {result.in_production ? <h4>Still in production</h4> : <h4>No longer in production</h4>}
-                    {this.buildGenreList(result)}
-                    <br />
-                    <h5>Number of Seasons: {result.number_of_seasons}</h5>
-                    <h5>Number of Episodes: {result.number_of_episodes}</h5>
-                    {this.buildHomepageJsx(result)}
-                    <hr />
-                    <h4>Overview</h4>
-                </>
-            ),
-            resultOverview: (
-                <>
-                    <Card.Text className='w-75 mx-auto'>
-                        {result.overview}
-                    </Card.Text>
-                    {this.buildSeasonsTable()}
-                </>
-            )
-        }
-    }
-
     //if recommendations exist, build and return Recommendations Section JSX object
     buildRecommendationSectionJsx() {
         if (this.state.recommendations.length > 0) { //only build Recommendation section if recommendations exist
             return (
                 <Card.Footer>
-                    <Card.Title className='mx-auto'><h2>Related Recommendations</h2></Card.Title>
+                    <Card.Title className='mx-auto'><h2>You Might Also Be Interested In</h2></Card.Title>
                     <CardColumns>
                         {this.state.recommendations.map((item, index) =>
-                            <Recommendation key={index} index={index} item={item} handleChangeFocus={this.handleChangeFocus} />
+                            <Recommendation key={index} index={index} data={item} handleChangeFocus={this.handleChangeFocus} />
                         )}
                     </CardColumns>
                 </Card.Footer>
@@ -210,7 +241,8 @@ class ExpandedResult extends React.Component {
 
     //call appropriate compileData method based on media_type
     compileItemJsx() {
-        let resultType = this.props.data.media_type;
+        const resultType = this.props.data.media_type;
+        console.log(this.state.expandedData);
 
         if (resultType === 'movie')
             return this.compileMovieData(this.state.expandedData);
@@ -222,7 +254,7 @@ class ExpandedResult extends React.Component {
 
     render() {
         window.scrollTo(0, 0);
-        let compiledItemJsx = this.compileItemJsx();
+        const compiledItemJsx = this.compileItemJsx();
 
         return (
             <Card className='mx-auto my-3 outer-result-card'>
@@ -240,6 +272,7 @@ class ExpandedResult extends React.Component {
                                 <Card.Title>
                                     <h1 className='display-4'>{compiledItemJsx.resultName}</h1>
                                     <h5 className='text-muted'>{this.resultType()}</h5>
+                                    <hr />
                                     {compiledItemJsx.resultPrimaryInfo}
                                 </Card.Title>
                                 {compiledItemJsx.resultOverview}

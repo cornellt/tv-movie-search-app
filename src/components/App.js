@@ -27,7 +27,8 @@ class App extends React.Component {
     this.returnToHomePage(); //always return to home page before processing search query to ensure NavigationBar search box behaves as expected
 
     if (query !== '') { //make AJAX request only if the query is not empty
-      let searchRequestUrl = API_BASE_URL + 'search/multi?api_key=' + SECRET_API_KEY + '&language=en-US&query=' + query + '&page=1&include_adult=false';
+      const searchRequestUrl = API_BASE_URL + 'search/multi?api_key=' + SECRET_API_KEY + '&language=en-US&query=' + query + '&page=1&include_adult=false';
+
       try {
         const response = await axios.get(searchRequestUrl);
 

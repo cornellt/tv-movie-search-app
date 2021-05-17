@@ -27,12 +27,11 @@ class SearchResultsPage extends React.Component {
         });
     }
 
-    //build JSX object based on current State
-    buildListJsx() {
-        if (this.state.isShowingExpandedResult) { //create ExpandedResult if that's what we're currently showing
+    //switch between ExpandedResult and list of SearchResultItem components
+    buildPageJsx() {
+        if (this.state.isShowingExpandedResult)  //create ExpandedResult if that's what we're currently showing
             return <ExpandedResult data={this.state.expandedResultData} handleReturnToResults={this.handleReturnFromExpandedResult} />;
-        }
-        else { //create SearchResultItem list otherwise
+        else { //otherwise, create SearchResultItem list
             return (
                 <>
                     {this.props.searchData.map((item, index) =>
@@ -49,7 +48,7 @@ class SearchResultsPage extends React.Component {
         return (
             <>
                 <Container className='results-section m-1 mx-auto' fluid>
-                    {this.buildListJsx()}
+                    {this.buildPageJsx()}
                     <div className='footer-text'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</div>
                     <Image className='attribution-logo pt-2' src='https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg' />
                 </Container>
