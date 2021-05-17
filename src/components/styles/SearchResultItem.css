@@ -1,5 +1,6 @@
 .list-item {
     cursor: pointer;
+    width: 60%;
 }
 
 .list-item:hover {

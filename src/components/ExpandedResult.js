@@ -74,6 +74,15 @@ class ExpandedResult extends React.Component {
         ).format(value); //currency formatting sourced from https://www.samanthaming.com/tidbits/30-how-to-format-currency-in-es6/
     }
 
+    //convert mins to hr:min
+    formatRuntime(runtime) {
+        if (runtime && runtime > 59) {
+            return `${Math.floor(runtime / 60)} hrs, ${runtime % 60} min`;
+        }
+
+        return `${runtime} min`;
+    }
+
     //returns a formatted date string based on the ISO Date provided by the API
     formatDate(dateString) {
         const date = new Date(dateString);
@@ -126,7 +135,7 @@ class ExpandedResult extends React.Component {
             resultPrimaryInfo: (
                 <>
                     <h3>Release Date: {this.formatDate(result.release_date)}</h3>
-                    { (result.runtime > 0) ? (<h5>Runtime: {result.runtime} min</h5>) : null}
+                    { (result.runtime > 0) ? (<h5>Runtime: {this.formatRuntime(result.runtime)}</h5>) : null}
                     {this.buildGenreList(result)}
                     {this.buildHomepageJsx(result)}
                     <hr />
