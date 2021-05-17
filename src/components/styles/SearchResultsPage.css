@@ -11,6 +11,7 @@ hr {
 }
 
 .attribution-logo {
+    top: -1vh;
     position: relative;
     width: 100px; 
     height: 40px;
@@ -19,3 +20,12 @@ hr {
 .footer-text {
     color: white;
 }
+
+.tmdb-link {
+    color: rgb(156, 156, 156);
+}
+
+.tmdb-link:hover {
+    color: rgb(156, 156, 156);
+}
+

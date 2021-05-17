@@ -14,8 +14,7 @@ const HomePage = props => {
             <Container fluid id='container'>
                 <Container fluid className='w-75 search-area'>
                     <HomeSearchBox searchRequest={props.searchRequest} />
-                    <p className='powered-by'>Powered by</p>
-                    <Image className='powered-by-image' src='https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg' />
+                    <div className='attribution'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</div>
                 </Container>
             </Container>
         </>
