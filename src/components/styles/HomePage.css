@@ -1,7 +1,7 @@
 .hero-img {
     object-fit: cover !important;
     width: 100%;
-    height: 100vh;
+    height: 97vh;
     position: relative;
     opacity: 0.8;
     z-index: -5;
@@ -14,21 +14,10 @@
     transform: translate(-50%, -50%); /** End of citation **/
 }
 
-.powered-by {
-    color: white;
-}
-
-.powered-by-image {
-    width: 100px;
-    height: 40px;
-    position: relative;
-    top: -2vh;
-}
-
 .attribution {
     color: white;
     position: relative;
-    top: 42vh;
+    top: 43vh;
 }
 
 .tmdb-link {
@@ -37,4 +26,8 @@
 
 .tmdb-link:hover {
     color: rgb(156, 156, 156);
+}
+
+.footer-dark {
+    background-color: #2f3236 !important;
 }

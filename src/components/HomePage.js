@@ -14,9 +14,11 @@ const HomePage = props => {
             <Container fluid id='container'>
                 <Container fluid className='w-75 search-area'>
                     <HomeSearchBox searchRequest={props.searchRequest} />
-                    <div className='attribution'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</div>
                 </Container>
             </Container>
+            <footer class="footer footer-dark mt-auto">
+                <div className='footer-text mt-1'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</div>
+            </footer>
         </>
     );
 }
