@@ -87,9 +87,9 @@ class SearchResultItem extends React.Component {
         if (resultType === 'movie' || resultType === 'tv') {
             return (
                 <>
-                    <ListGroup.Item className='w-50'>Title<hr /><em>{resultTitle}</em></ListGroup.Item>
-                    <ListGroup.Item className='w-50'>Release Date<hr />{formattedReleaseDate}</ListGroup.Item>
-                    <ListGroup.Item>Overview<hr />{result.overview}</ListGroup.Item>
+                    <ListGroup.Item className='w-25'>Title<hr /><em>{resultTitle}</em></ListGroup.Item>
+                    <ListGroup.Item className='w-25'>Release Date<hr />{formattedReleaseDate}</ListGroup.Item>
+                    <ListGroup.Item className='w-50'>Overview<hr />{result.overview}</ListGroup.Item>
                 </>
             );
         }
