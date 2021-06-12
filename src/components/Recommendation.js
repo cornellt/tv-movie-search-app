@@ -22,7 +22,7 @@ class Recommendation extends React.Component {
                     <Card.Img variant="top" src={this.buildBackdropUrl(recommendationData.backdrop_path)} />
                     <Card.Body>
                         <Card.Title>{recommendationData.media_type === 'tv' ? recommendationData.name : recommendationData.title}</Card.Title>
-                        <Card.Text>{recommendationData.overview}</Card.Text>
+                        <Card.Text className='text-muted'>{recommendationData.overview}</Card.Text>
                     </Card.Body>
                 </Card>
             </>
