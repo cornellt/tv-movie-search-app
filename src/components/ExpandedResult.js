@@ -124,6 +124,7 @@ class ExpandedResult extends React.Component {
             resultName: result.name,
             resultPrimaryInfo: <h4>Biography</h4>,
             resultOverview: <Card.Text className='w-75 mx-auto'>{result.biography}</Card.Text>
+            //TODO: include clickable Popular Contribution cards
         }
     }
 
@@ -209,6 +210,12 @@ class ExpandedResult extends React.Component {
                 </Table>
             );
         }
+    }
+
+    //Build list of clickable main actors/chatacters for TV Show/Movie
+    buildMainCharactersList(data) {
+        //TODO: finish method for generating JSX for clickable Character cards
+        //TODO: make new 'Character' component akin to 'Recommendation.js'
     }
 
     //Build genre String + JSX for TV Show/Movie

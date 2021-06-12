@@ -65,20 +65,31 @@ class SearchResultItem extends React.Component {
         return (resultPosterPath) ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
     }
 
+    //returns a formatted date string based on the ISO Date provided by the API
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        const formattedDateStr = date.toDateString();
+        const formattedDateSplit = formattedDateStr.split(' ');
+        return `${formattedDateSplit[2]} ${formattedDateSplit[1]} ${formattedDateSplit[3]}`;
+    }
+
     //build JSX object based on media_type of search result item
     buildJsx() {
         const result = this.props.data;
         const resultType = result.media_type;
 
         let resultTitle = (resultType === 'movie') ? result.title : result.name;
+
+        //TODO: change resultRelease to formatted date from ExpandedResult
         let resultRelease = (resultType === 'movie' || resultType === 'tv') ? (resultType === 'movie' ? result.release_date : result.first_air_date) : {};
+        const formattedReleaseDate = this.formatDate(resultRelease);
 
         if (resultType === 'movie' || resultType === 'tv') {
             return (
                 <>
-                    <ListGroup.Item><em>{resultTitle}</em></ListGroup.Item>
-                    <ListGroup.Item>{resultRelease}</ListGroup.Item>
-                    <ListGroup.Item>{result.overview}</ListGroup.Item>
+                    <ListGroup.Item className='w-25'>Title<hr /><em>{resultTitle}</em></ListGroup.Item>
+                    <ListGroup.Item className='w-25'>Release Date<hr />{formattedReleaseDate}</ListGroup.Item>
+                    <ListGroup.Item className='w-50'>Overview<hr />{result.overview}</ListGroup.Item>
                 </>
             );
         }
@@ -87,10 +98,10 @@ class SearchResultItem extends React.Component {
 
             return (
                 <>
-                    <ListGroup.Item>{resultTitle}</ListGroup.Item>
-                    <ListGroup.Item>Known for {result.known_for_department}</ListGroup.Item>
+                    <ListGroup.Item>Name<hr />{resultTitle}</ListGroup.Item>
+                    <ListGroup.Item>Known for<hr />{result.known_for_department}</ListGroup.Item>
                     <ListGroup>
-                        <ListGroup.Item><u>Popular Contributions</u></ListGroup.Item>
+                        <ListGroup.Item>Popular Contributions</ListGroup.Item>
                         <ListGroup horizontal>
                             {popularContributions.map((item, index) =>
                                 <ListGroup.Item key={index} className='d-inline-block'>
