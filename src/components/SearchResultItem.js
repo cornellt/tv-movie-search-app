@@ -87,9 +87,9 @@ class SearchResultItem extends React.Component {
         if (resultType === 'movie' || resultType === 'tv') {
             return (
                 <>
-                    <ListGroup.Item className='w-25'>Title<hr /><em>{resultTitle}</em></ListGroup.Item>
-                    <ListGroup.Item className='w-25'>Release Date<hr />{formattedReleaseDate}</ListGroup.Item>
-                    <ListGroup.Item className='w-50'>Overview<hr />{result.overview}</ListGroup.Item>
+                    <ListGroup.Item className='w-25'><span className='text-muted'>Title</span><hr /><em>{resultTitle}</em></ListGroup.Item>
+                    <ListGroup.Item className='w-25'><span className='text-muted'>Release Date</span><hr />{formattedReleaseDate}</ListGroup.Item>
+                    <ListGroup.Item className='w-50'><span className='text-muted'>Overview</span><hr />{result.overview}</ListGroup.Item>
                 </>
             );
         }
@@ -98,10 +98,10 @@ class SearchResultItem extends React.Component {
 
             return (
                 <>
-                    <ListGroup.Item>Name<hr />{resultTitle}</ListGroup.Item>
-                    <ListGroup.Item>Known for<hr />{result.known_for_department}</ListGroup.Item>
+                    <ListGroup.Item className='w-25'><span className='text-muted'>Name</span><hr />{resultTitle}</ListGroup.Item>
+                    <ListGroup.Item className='w-25'><span className='text-muted'>Known for</span><hr />{result.known_for_department}</ListGroup.Item>
                     <ListGroup>
-                        <ListGroup.Item>Popular Contributions</ListGroup.Item>
+                        <ListGroup.Item><span className='text-muted'>Popular Contributions</span></ListGroup.Item>
                         <ListGroup horizontal>
                             {popularContributions.map((item, index) =>
                                 <ListGroup.Item key={index} className='d-inline-block'>
