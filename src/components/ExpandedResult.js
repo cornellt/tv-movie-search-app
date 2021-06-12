@@ -73,6 +73,7 @@ class ExpandedResult extends React.Component {
         return new Intl.NumberFormat('en-US',
             { style: 'currency', currency: 'USD' }
         ).format(value);
+        //test
     }
 
     //convert mins to hr:min
