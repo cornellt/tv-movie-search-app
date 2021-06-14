@@ -1,7 +1,7 @@
 import React from 'react';
-import './styles/App.css';
 import axios from 'axios';
-import NavigationBar from './NavigationBar'
+import './styles/App.css';
+import NavigationBar from './NavigationBar';
 import HomePage from './HomePage';
 import SearchResultsPage from './SearchResultsPage';
 

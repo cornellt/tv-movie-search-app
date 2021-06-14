@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import './styles/ExpandedResult.css';
+import Recommendation from './Recommendation';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 import Col from 'react-bootstrap/Col'; //sourced from https://react-bootstrap.netlify.app/layout/grid/
 import Row from 'react-bootstrap/Row'; //sourced from https://react-bootstrap.netlify.app/layout/grid/
 import Table from 'react-bootstrap/Table'; //sourced from https://react-bootstrap.netlify.app/components/table/
 import CardColumns from 'react-bootstrap/CardColumns'; //sourced from https://react-bootstrap.netlify.app/components/cards/#card-columns
-import Recommendation from './Recommendation';
 
 const SECRET_API_KEY = '8aaeb5fa2472dd850f957c983d0bb2e1';
 const API_BASE_URL = 'https://api.themoviedb.org/3/';
