@@ -10,7 +10,7 @@ class SearchBox extends React.Component {
     render() {
         return (
             <Form onSubmit={this.props.handleSubmit}>
-                <Form.Control className='border border-secondary text-center' size={this.props.size} type='text' placeholder='Search for a TV show, Movie, or Actor' onChange={this.handleChange} value={this.props.inputText} />
+                <Form.Control className='border border-secondary text-center' size={this.props.size} htmlSize='36' type='text' placeholder='Search for a TV show, Movie, or Actor' onChange={this.handleChange} value={this.props.inputText} />
             </Form>
         );
     }
