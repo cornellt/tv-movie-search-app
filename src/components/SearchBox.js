@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/SearchBox.css';
 import Form from 'react-bootstrap/Form'; //sourced from https://react-bootstrap.netlify.app/components/forms/
 
 class SearchBox extends React.Component {
