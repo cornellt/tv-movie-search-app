@@ -270,7 +270,7 @@ class ExpandedResult extends React.Component {
         window.scrollTo(0, 0);
         const compiledItemJsx = this.compileItemJsx();
 
-        //console.log(this.state.expandedData); //TODO: remove this
+        console.log(this.state.expandedData); //TODO: remove this
 
         return (
             <Card className='mx-auto my-3 outer-result-card'>
