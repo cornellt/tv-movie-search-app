@@ -36,7 +36,7 @@ class SearchResultItem extends React.Component {
             else if (item.media_type === 'tv')
                 contributionTitle = item.name;
 
-            let contribution = {
+            const contribution = {
                 title: contributionTitle,
                 data: item
             }
@@ -78,10 +78,9 @@ class SearchResultItem extends React.Component {
         const result = this.props.data;
         const resultType = result.media_type;
 
-        let resultTitle = (resultType === 'movie') ? result.title : result.name;
+        const resultTitle = (resultType === 'movie') ? result.title : result.name;
 
-        //TODO: change resultRelease to formatted date from ExpandedResult
-        let resultRelease = (resultType === 'movie' || resultType === 'tv') ? (resultType === 'movie' ? result.release_date : result.first_air_date) : {};
+        const resultRelease = (resultType === 'movie' || resultType === 'tv') ? (resultType === 'movie' ? result.release_date : result.first_air_date) : {};
         const formattedReleaseDate = this.formatDate(resultRelease);
 
         if (resultType === 'movie' || resultType === 'tv') {
@@ -94,14 +93,15 @@ class SearchResultItem extends React.Component {
             );
         }
         else if (resultType === 'person') {
-            let popularContributions = this.buildContributionList(result);
+            const popularContributions = this.buildContributionList(result);
 
             return (
                 <>
                     <ListGroup.Item className='w-25'><span className='text-muted'>Name</span><hr />{resultTitle}</ListGroup.Item>
                     <ListGroup.Item className='w-25'><span className='text-muted'>Known for</span><hr />{result.known_for_department}</ListGroup.Item>
-                    <ListGroup>
-                        <ListGroup.Item><span className='text-muted'>Popular Contributions</span></ListGroup.Item>
+                    <ListGroup.Item>
+                        <span className='text-muted'>Popular Contributions</span>
+                        <hr />
                         <ListGroup horizontal>
                             {popularContributions.map((item, index) =>
                                 <ListGroup.Item key={index} className='d-inline-block'>
@@ -110,7 +110,7 @@ class SearchResultItem extends React.Component {
                                 </ListGroup.Item>
                             )}
                         </ListGroup>
-                    </ListGroup>
+                    </ListGroup.Item>
                 </>
             );
         }

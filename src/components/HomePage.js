@@ -12,7 +12,7 @@ const HomePage = props => {
             <Image className='hero-img' src={backgroundImageUrl} />
             <Container fluid id='container'>
                 <Container fluid className='w-75 search-area'>
-                    <HomeSearchBox searchRequest={props.searchRequest} />
+                    <HomeSearchBox searchRequest={props.searchRequest} onSearchBoxChange={props.onSearchBoxChange} inputText={props.inputText} />
                 </Container>
             </Container>
             <footer className='footer footer-dark'>

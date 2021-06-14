@@ -1,28 +1,29 @@
 .list-item {
     cursor: pointer;
+    height: auto;
 }
 
 .list-item:hover {
     opacity: 0.8;
 }
 
-
 @media only screen and (max-width: 992px) {
-.list-item > * {
-    min-width: 100%;
-}
+    .list-item > * {
+        min-width: 100%;
+    }
 }
 
 .small-poster {
-    width: 90%;
-    max-width: 40vw;
+    width: 95%;
+    max-width: 24vw;
     height: auto;
     object-fit: cover;
     border-radius: 5px;
 }
 
 .known-for-poster {
-    width: 90%;
+    width: 85%;
+    max-width: 20vw;
     height: auto;
     object-fit: cover;
     border-radius: 5px;
