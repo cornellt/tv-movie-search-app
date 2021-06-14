@@ -15,8 +15,8 @@ const HomePage = props => {
                     <HomeSearchBox searchRequest={props.searchRequest} />
                 </Container>
             </Container>
-            <footer className='footer footer-dark mt-auto'>
-                <div className='footer-text mt-1'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</div>
+            <footer className='footer footer-dark'>
+                <span className='footer-text'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</span>
             </footer>
         </>
     );

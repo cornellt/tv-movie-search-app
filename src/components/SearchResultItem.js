@@ -118,7 +118,7 @@ class SearchResultItem extends React.Component {
 
     render() {
         return (
-            <ListGroup horizontal='md' className='m-1 p-1 list-item mx-auto' onClick={this.handleClick}>
+            <ListGroup horizontal='lg' className='m-1 p-1 list-item mx-auto' onClick={this.handleClick}>
                 <ListGroup.Item>{this.resultType()}</ListGroup.Item>
                 <ListGroup.Item>
                     <Image className='mx-auto small-poster' src={this.buildPosterUrl()} />
