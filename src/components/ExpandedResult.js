@@ -135,7 +135,7 @@ class ExpandedResult extends React.Component {
             resultPrimaryInfo: (
                 <>
                     <h3>Release Date: {this.formatDate(result.release_date)}</h3>
-                    { (result.runtime > 0) ? (<h5>Runtime: {this.formatRuntime(result.runtime)}</h5>) : null}
+                    {(result.runtime > 0) ? (<h5>Runtime: {this.formatRuntime(result.runtime)}</h5>) : null}
                     {this.buildGenreList(result)}
                     {this.buildHomepageJsx(result)}
                     <hr />
@@ -270,7 +270,7 @@ class ExpandedResult extends React.Component {
         window.scrollTo(0, 0);
         const compiledItemJsx = this.compileItemJsx();
 
-        console.log(this.state.expandedData); //TODO: remove this
+        //console.log(this.state.expandedData); //TODO: remove this
 
         return (
             <Card className='mx-auto my-3 outer-result-card'>
