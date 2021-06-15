@@ -1,0 +1,18 @@
+.cast-poster {
+    width: 100%;
+    max-width: 10vw !important;
+    height: auto;
+    object-fit: cover;
+    border-radius: 3px !important;
+}
+
+.cast-card {
+    cursor: pointer;
+    min-width: 12rem !important;
+    border-radius: 4px !important;
+}
+
+.cast-card:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

@@ -1,16 +1,14 @@
 import React from 'react';
 import './styles/SearchResultItem.css';
-import ListGroup from 'react-bootstrap/ListGroup' //sourced from https://react-bootstrap.netlify.app/components/list-group/
-import Image from 'react-bootstrap/Image' //sourced from https://react-bootstrap.netlify.app/components/images/
+import ListGroup from 'react-bootstrap/ListGroup'; //sourced from https://react-bootstrap.netlify.app/components/list-group/
+import Image from 'react-bootstrap/Image'; //sourced from https://react-bootstrap.netlify.app/components/images/
 
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500/';
 const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1'; //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
 
 class SearchResultItem extends React.Component {
     //handle expanding a search result item
-    handleClick = () => {
-        this.props.expandResult(this.props.data);
-    }
+    handleClick = () => this.props.expandResult(this.props.data);
 
     //return formatted String for each media_type
     resultType() {
@@ -22,28 +20,6 @@ class SearchResultItem extends React.Component {
             return 'TV Show';
         else if (resultType === 'person')
             return 'Person';
-    }
-
-    //build contributions array for 'Person' search result item
-    buildContributionList(result) {
-        let popularContributions = [];
-
-        result.known_for.forEach((item) => {
-            let contributionTitle;
-
-            if (item.media_type === 'movie')
-                contributionTitle = item.title;
-            else if (item.media_type === 'tv')
-                contributionTitle = item.name;
-
-            let contribution = {
-                title: contributionTitle,
-                data: item
-            }
-            popularContributions = [...popularContributions, contribution];
-        });
-
-        return popularContributions;
     }
 
     //build URL to access movie/tv poster or person portrait
@@ -65,12 +41,26 @@ class SearchResultItem extends React.Component {
         return (resultPosterPath) ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
     }
 
-    //returns a formatted date string based on the ISO Date provided by the API
-    formatDate(dateString) {
-        const date = new Date(dateString);
-        const formattedDateStr = date.toDateString();
-        const formattedDateSplit = formattedDateStr.split(' ');
-        return `${formattedDateSplit[2]} ${formattedDateSplit[1]} ${formattedDateSplit[3]}`;
+    //build contributions array for 'Person' search result item
+    buildContributionList(result) {
+        let popularContributions = [];
+
+        result.known_for.forEach((item) => {
+            let contributionTitle;
+
+            if (item.media_type === 'movie')
+                contributionTitle = item.title;
+            else if (item.media_type === 'tv')
+                contributionTitle = item.name;
+
+            const contribution = {
+                title: contributionTitle,
+                data: item
+            }
+            popularContributions = [...popularContributions, contribution];
+        });
+
+        return popularContributions;
     }
 
     //build JSX object based on media_type of search result item
@@ -78,11 +68,10 @@ class SearchResultItem extends React.Component {
         const result = this.props.data;
         const resultType = result.media_type;
 
-        let resultTitle = (resultType === 'movie') ? result.title : result.name;
+        const resultTitle = (resultType === 'movie') ? result.title : result.name;
 
-        //TODO: change resultRelease to formatted date from ExpandedResult
-        let resultRelease = (resultType === 'movie' || resultType === 'tv') ? (resultType === 'movie' ? result.release_date : result.first_air_date) : {};
-        const formattedReleaseDate = this.formatDate(resultRelease);
+        const resultRelease = (resultType === 'movie' || resultType === 'tv') ? (resultType === 'movie' ? result.release_date : result.first_air_date) : {};
+        const formattedReleaseDate = this.props.formatDate(resultRelease);
 
         if (resultType === 'movie' || resultType === 'tv') {
             return (
@@ -94,14 +83,14 @@ class SearchResultItem extends React.Component {
             );
         }
         else if (resultType === 'person') {
-            let popularContributions = this.buildContributionList(result);
+            const popularContributions = this.buildContributionList(result);
+            let contributionsJsx;
 
-            return (
-                <>
-                    <ListGroup.Item className='w-25'><span className='text-muted'>Name</span><hr />{resultTitle}</ListGroup.Item>
-                    <ListGroup.Item className='w-25'><span className='text-muted'>Known for</span><hr />{result.known_for_department}</ListGroup.Item>
-                    <ListGroup>
-                        <ListGroup.Item><span className='text-muted'>Popular Contributions</span></ListGroup.Item>
+            if (popularContributions.length > 0) {
+                contributionsJsx = (
+                    <ListGroup.Item>
+                        <span className='text-muted'>Popular Contributions</span>
+                        <hr />
                         <ListGroup horizontal>
                             {popularContributions.map((item, index) =>
                                 <ListGroup.Item key={index} className='d-inline-block'>
@@ -110,7 +99,16 @@ class SearchResultItem extends React.Component {
                                 </ListGroup.Item>
                             )}
                         </ListGroup>
-                    </ListGroup>
+                    </ListGroup.Item>
+                );
+            }
+
+            return (
+                <>
+                    <ListGroup.Item className='w-25'><span className='text-muted'>Name</span><hr />{resultTitle}</ListGroup.Item>
+                    <ListGroup.Item className='w-25'><span className='text-muted'>Known for</span><hr />{result.known_for_department}</ListGroup.Item>
+                    {contributionsJsx}
+
                 </>
             );
         }
