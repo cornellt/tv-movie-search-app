@@ -9,14 +9,8 @@ import CardGroup from 'react-bootstrap/CardGroup'; //sourced from https://react-
 
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500/';
 const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1'; //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
-const PLACEHOLDER_BACKDROP_URL = 'https://fakeimg.pl/640x360'; //placeholder sourced from https://fakeimg.pl/640x360
 
 function TVShow(props) {
-    //build URL to access movie/tv "backdrop" image for popular roles
-    function buildBackdropUrl(path) {
-        return path === null ? PLACEHOLDER_BACKDROP_URL : POSTER_BASE_URL + path;
-    }
-
     //build URL to access movie/tv poster or person portrait
     function buildPosterUrl() {
         const resultPosterPath = props.data.poster_path;

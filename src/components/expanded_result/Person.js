@@ -45,20 +45,20 @@ function Person(props) {
     }
 
     //build JSX for Popular Roles cards
-    function buildPopularRolesList() {
-        let popularContributions = [];
-
+    function buildActingRolesList() {
         if (combinedCredits.length > 0) {
-            for (let i = 0; (i < 30) && (i < combinedCredits.length); i++) {
+            let actingRoles = [];
+
+            for (let i = 0; (i < 100) && (i < combinedCredits.length); i++) {
                 const item = combinedCredits[i];
-                popularContributions = [...popularContributions, item];
+                actingRoles = [...actingRoles, item];
             }
 
             return (
                 <Card.Footer>
-                    <Card.Title className='mx-auto'><h2>Popular Roles</h2></Card.Title>
+                    <Card.Title className='mx-auto'><h2>Acting Roles</h2></Card.Title>
                     <CardGroup>
-                        {popularContributions.map((item, index) =>
+                        {actingRoles.map((item, index) =>
                             <PersonCastRole key={index} data={item} handleChangeFocus={props.handleChangeFocus} />
                         )}
                     </CardGroup>
@@ -95,8 +95,7 @@ function Person(props) {
         return bioData;
     }
 
-
-    const compiledPersonData = compileBio(props.data);
+    const bioData = compileBio(props.data);
 
     return (
         <Card className='mx-auto my-3 outer-result-card'>
@@ -105,15 +104,15 @@ function Person(props) {
                 <Row>
                     <Col lg className='my-3 ml-1'>
                         <Card.Title className='mb-0'>
-                            <h1 className='display-4'>{compiledPersonData.name}</h1>
+                            <h1 className='display-4'>{bioData.name}</h1>
                             <Card.Img className='my-3 my-2 poster w-75' variant="top" src={buildPosterUrl(props.data.profile_path)} />
-                            {compiledPersonData.birthday}
-                            {compiledPersonData.deathday}
+                            {bioData.birthday}
+                            {bioData.deathday}
                         </Card.Title>
                     </Col>
                     <Col lg className='mx-3'>
                         <Card.Body>
-                            {compiledPersonData.biography}
+                            {bioData.biography}
                         </Card.Body>
                     </Col>
                 </Row>
@@ -121,7 +120,7 @@ function Person(props) {
                     <Button variant="primary" onClick={props.handleReturnToResults}>Return to Search Results</Button>
                 </Row>
             </Card>
-            {buildPopularRolesList()}
+            {buildActingRolesList()}
         </Card>
     );
 
