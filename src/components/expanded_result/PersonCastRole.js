@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1'; //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
 
-function PersonCastRole(props) {
+export default function PersonCastRole(props) {
     const castRoleData = props.data;
     const posterPath = castRoleData.poster_path;
 
@@ -18,5 +18,3 @@ function PersonCastRole(props) {
         </Card>
     );
 }
-
-export default PersonCastRole;

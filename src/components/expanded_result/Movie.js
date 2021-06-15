@@ -9,7 +9,7 @@ import CardGroup from 'react-bootstrap/CardGroup'; //sourced from https://react-
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500/';
 const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1'; //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
 
-function Movie(props) {
+export default function Movie(props) {
     //build URL to access movie/tv poster or person portrait
     function buildPosterUrl() {
         const resultPosterPath = props.data.poster_path;
@@ -150,5 +150,3 @@ function Movie(props) {
         </Card>
     );
 }
-
-export default Movie;

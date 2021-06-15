@@ -15,7 +15,7 @@ const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500/';
 const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1'; //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
 // const PLACEHOLDER_BACKDROP_URL = 'https://fakeimg.pl/640x360'; //placeholder sourced from https://fakeimg.pl/640x360
 
-function Person(props) {
+export default function Person(props) {
     const [combinedCredits, setCombinedCredits] = useState([]);
 
     //make AJAX request when component fully loads
@@ -125,5 +125,3 @@ function Person(props) {
     );
 
 }
-
-export default Person;
