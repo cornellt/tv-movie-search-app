@@ -4,6 +4,7 @@ import './styles/ExpandedResult.css';
 import Person from './expanded_result/Person';
 import Movie from './expanded_result/Movie';
 import TVShow from './expanded_result/TVShow';
+import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 
 const SECRET_API_KEY = '8aaeb5fa2472dd850f957c983d0bb2e1';
 const API_BASE_URL = 'https://api.themoviedb.org/3/';
@@ -73,6 +74,7 @@ class ExpandedResult extends React.Component {
 
         return (
             <>
+                <Button className='mx-auto' variant="primary" onClick={this.props.handleReturnToResults}>Return to Search Results</Button>
                 {this.renderType()}
             </>
         );
