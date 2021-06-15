@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './expanded_result_styles/Person.css';
+import '../styles/expanded_result_styles/Person.css';
 import PersonCastRole from './PersonCastRole';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
