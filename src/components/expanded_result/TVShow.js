@@ -53,8 +53,8 @@ function TVShow(props) {
                 <Table striped bordered size='sm' className='my-3'>
                     <thead>
                         <tr>
-                            <th>Season #</th>
-                            <th>Episode Count</th>
+                            <th>Season</th>
+                            <th>Episodes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +64,10 @@ function TVShow(props) {
                                 <td>{item.episode_count}</td>
                             </tr>
                         )}
+                        <tr>
+                            <th>{props.data.number_of_seasons} Seasons</th>
+                            <th>{props.data.number_of_episodes} Episodes</th>
+                        </tr>
                     </tbody>
                 </Table>
             );
@@ -97,8 +101,6 @@ function TVShow(props) {
                     <h4 className={color}>{inProd ? 'Still in production' : 'No longer in production'}</h4>
                     {buildGenreList(result)}
                     <br />
-                    <h5>Number of Seasons: {result.number_of_seasons}</h5>
-                    <h5>Number of Episodes: {result.number_of_episodes}</h5>
                     {buildHomepageJsx(result)}
                     <hr />
                     <h4>Overview</h4>
