@@ -8,9 +8,7 @@ const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/u
 
 class SearchResultItem extends React.Component {
     //handle expanding a search result item
-    handleClick = () => {
-        this.props.expandResult(this.props.data);
-    }
+    handleClick = () => this.props.expandResult(this.props.data);
 
     //return formatted String for each media_type
     resultType() {
@@ -22,6 +20,25 @@ class SearchResultItem extends React.Component {
             return 'TV Show';
         else if (resultType === 'person')
             return 'Person';
+    }
+
+    //build URL to access movie/tv poster or person portrait
+    buildPosterUrl() {
+        const result = this.props.data;
+        const resultType = this.props.data.media_type;
+        const resultPosterPath = ((resultType === 'movie' || resultType === 'tv') ? result.poster_path : result.profile_path);
+
+        //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
+        return (resultPosterPath) ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
+    }
+
+    //build URL for a Person's Popular Contribution based on provided poster_path
+    buildContributionPosterUrl(item) {
+        const resultType = item.data.media_type;
+        const resultPosterPath = ((resultType === 'movie' || resultType === 'tv') ? item.data.poster_path : item.data.profile_path);
+
+        //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
+        return (resultPosterPath) ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
     }
 
     //build contributions array for 'Person' search result item
@@ -46,33 +63,6 @@ class SearchResultItem extends React.Component {
         return popularContributions;
     }
 
-    //build URL to access movie/tv poster or person portrait
-    buildPosterUrl() {
-        const result = this.props.data;
-        const resultType = this.props.data.media_type;
-        const resultPosterPath = ((resultType === 'movie' || resultType === 'tv') ? result.poster_path : result.profile_path);
-
-        //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
-        return (resultPosterPath) ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
-    }
-
-    //build URL for a Person's Popular Contribution based on provided poster_path
-    buildContributionPosterUrl(item) {
-        const resultType = item.data.media_type;
-        const resultPosterPath = ((resultType === 'movie' || resultType === 'tv') ? item.data.poster_path : item.data.profile_path);
-
-        //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
-        return (resultPosterPath) ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
-    }
-
-    //returns a formatted date string based on the ISO Date provided by the API
-    formatDate(dateString) {
-        const date = new Date(dateString);
-        const formattedDateStr = date.toDateString();
-        const formattedDateSplit = formattedDateStr.split(' ');
-        return `${formattedDateSplit[2]} ${formattedDateSplit[1]} ${formattedDateSplit[3]}`;
-    }
-
     //build JSX object based on media_type of search result item
     buildJsx() {
         const result = this.props.data;
@@ -81,7 +71,7 @@ class SearchResultItem extends React.Component {
         const resultTitle = (resultType === 'movie') ? result.title : result.name;
 
         const resultRelease = (resultType === 'movie' || resultType === 'tv') ? (resultType === 'movie' ? result.release_date : result.first_air_date) : {};
-        const formattedReleaseDate = this.formatDate(resultRelease);
+        const formattedReleaseDate = this.props.formatDate(resultRelease);
 
         if (resultType === 'movie' || resultType === 'tv') {
             return (
@@ -94,11 +84,10 @@ class SearchResultItem extends React.Component {
         }
         else if (resultType === 'person') {
             const popularContributions = this.buildContributionList(result);
+            let contributionsJsx;
 
-            return (
-                <>
-                    <ListGroup.Item className='w-25'><span className='text-muted'>Name</span><hr />{resultTitle}</ListGroup.Item>
-                    <ListGroup.Item className='w-25'><span className='text-muted'>Known for</span><hr />{result.known_for_department}</ListGroup.Item>
+            if (popularContributions.length > 0) {
+                contributionsJsx = (
                     <ListGroup.Item>
                         <span className='text-muted'>Popular Contributions</span>
                         <hr />
@@ -111,6 +100,15 @@ class SearchResultItem extends React.Component {
                             )}
                         </ListGroup>
                     </ListGroup.Item>
+                );
+            }
+
+            return (
+                <>
+                    <ListGroup.Item className='w-25'><span className='text-muted'>Name</span><hr />{resultTitle}</ListGroup.Item>
+                    <ListGroup.Item className='w-25'><span className='text-muted'>Known for</span><hr />{result.known_for_department}</ListGroup.Item>
+                    {contributionsJsx}
+
                 </>
             );
         }

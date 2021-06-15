@@ -19,7 +19,6 @@ class NavigationBar extends React.Component {
                 <Navbar.Brand className='home-button' onClick={this.props.returnToHomePage}>TV & Movie Searching App</Navbar.Brand>
                 <Nav className='mr-auto'>
                 </Nav>
-
                 <SearchBox size='md' handleSubmit={this.handleSubmit} onSearchBoxChange={this.props.onSearchBoxChange} inputText={this.props.inputText} />
                 <Button className='mx-2' variant='outline-secondary' onClick={this.handleSubmit}>Search</Button>
             </Navbar >

@@ -15,7 +15,7 @@
 
 .small-poster {
     width: 95%;
-    max-width: 24vw;
+    max-width: 18vw;
     height: auto;
     object-fit: cover;
     border-radius: 5px;
@@ -23,7 +23,7 @@
 
 .known-for-poster {
     width: 85%;
-    max-width: 20vw;
+    max-width: 12vw;
     height: auto;
     object-fit: cover;
     border-radius: 5px;

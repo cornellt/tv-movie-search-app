@@ -18,8 +18,8 @@ class Recommendation extends React.Component {
 
         return (
             <>
-                <Card key={this.props.index} className='recommendation-card shadow-sm' onClick={this.handleChangeFocus}>
-                    <Card.Img variant="top" src={this.buildBackdropUrl(recommendationData.backdrop_path)} />
+                <Card key={this.props.index} className='recommendation-card shadow-sm my-1 mx-auto' onClick={this.handleChangeFocus}>
+                    <Card.Img variant="top recommendation-img" src={this.buildBackdropUrl(recommendationData.backdrop_path)} />
                     <Card.Body>
                         <Card.Title>{recommendationData.media_type === 'tv' ? recommendationData.name : recommendationData.title}</Card.Title>
                         <Card.Text className='text-muted'>{recommendationData.overview}</Card.Text>

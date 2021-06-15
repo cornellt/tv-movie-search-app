@@ -18,7 +18,7 @@ class HomePage extends React.Component {
         return (
             <>
                 <Image className='hero-img' src={backgroundImageUrl} />
-                <Container fluid id='container'>
+                <Container fluid>
                     <Container fluid className='w-75 search-area'>
                         <SearchBox size='lg' handleSubmit={this.handleSubmit} onSearchBoxChange={this.props.onSearchBoxChange} inputText={this.props.inputText} />
                         <Button variant='secondary' onClick={this.handleSubmit} className='m-2'>Search</Button>

@@ -25,17 +25,27 @@ class SearchResultsPage extends React.Component {
             isShowingExpandedResult: false,
             expandedResultData: {}
         });
+
+        window.scrollTo(0, 0);
+    }
+
+    //returns a formatted date string based on the ISO Date provided by the API
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        const formattedDateStr = date.toDateString();
+        const formattedDateSplit = formattedDateStr.split(' ');
+        return `${formattedDateSplit[1]} ${formattedDateSplit[2]}, ${formattedDateSplit[3]}`;
     }
 
     //switch between ExpandedResult and list of SearchResultItem components
     buildPageJsx() {
         if (this.state.isShowingExpandedResult)  //create ExpandedResult if that's what we're currently showing
-            return <ExpandedResult data={this.state.expandedResultData} handleReturnToResults={this.handleReturnFromExpandedResult} />;
+            return <ExpandedResult data={this.state.expandedResultData} handleReturnToResults={this.handleReturnFromExpandedResult} formatDate={this.formatDate} />;
         else { //otherwise, create SearchResultItem list
             return (
                 <>
                     {this.props.searchData.map((item, index) =>
-                        <SearchResultItem data={item} key={index} expandResult={this.handleExpandResult} />
+                        <SearchResultItem data={item} key={index} expandResult={this.handleExpandResult} formatDate={this.formatDate} />
                     )}
                 </>
             );
@@ -43,8 +53,6 @@ class SearchResultsPage extends React.Component {
     }
 
     render() {
-        window.scrollTo(0, 0);
-
         return (
             <>
                 <Container className='results-section m-1 mx-auto' fluid>
