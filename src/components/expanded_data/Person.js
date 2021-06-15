@@ -89,7 +89,9 @@ class Person extends React.Component {
                 (<>
                     <h3>Biography</h3>
                     <hr />
-                    <p className='w-100 mr-1'>{result.biography}</p>
+                    <Card.Text>
+                        {result.biography}
+                    </Card.Text>
                 </>)
         }
         if (result.birthday) {
@@ -118,7 +120,7 @@ class Person extends React.Component {
                                 {compiledItemJsx.deathday}
                             </Card.Title>
                         </Col>
-                        <Col lg className='mx-auto'>
+                        <Col lg className='mx-3'>
                             <Card.Body>
                                 {compiledItemJsx.biography}
                             </Card.Body>
