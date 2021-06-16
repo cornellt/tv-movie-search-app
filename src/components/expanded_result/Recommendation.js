@@ -2,7 +2,7 @@ import React from 'react';
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-const PLACEHOLDER_POSTER_URL = 'https://fakeimg.pl/640x360'; //placeholder sourced from https://fakeimg.pl/640x360
+const PLACEHOLDER_BACKDROP_URL = 'https://fakeimg.pl/640x360'; //placeholder sourced from https://fakeimg.pl/640x360
 
 export default function Recommendation(props) {
     //handler for Recommendation onClick; changes "focused" ExpandedResult
@@ -10,7 +10,7 @@ export default function Recommendation(props) {
 
     //build URL to access movie/tv "backdrop" image
     function buildBackdropUrl(path) {
-        return path === null ? PLACEHOLDER_POSTER_URL : POSTER_BASE_URL + path;
+        return path === null ? PLACEHOLDER_BACKDROP_URL : POSTER_BASE_URL + path;
     }
 
     return (
