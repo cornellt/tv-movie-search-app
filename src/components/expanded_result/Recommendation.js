@@ -4,30 +4,25 @@ import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 const PLACEHOLDER_POSTER_URL = 'https://fakeimg.pl/640x360'; //placeholder sourced from https://fakeimg.pl/640x360
 
-class Recommendation extends React.Component {
+export default function Recommendation(props) {
     //handler for Recommendation onClick; changes "focused" ExpandedResult
-    handleChangeFocus = () => this.props.handleChangeFocus(this.props.data);
+    const handleChangeFocus = () => props.handleChangeFocus(props.data);
 
     //build URL to access movie/tv "backdrop" image
-    buildBackdropUrl(path) {
+    function buildBackdropUrl(path) {
         return path === null ? PLACEHOLDER_POSTER_URL : POSTER_BASE_URL + path;
     }
 
-    render() {
-        const recommendationData = this.props.data;
+    return (
+        <>
+            <Card key={props.index} className='recommendation-card shadow-sm my-1 mx-1' onClick={handleChangeFocus}>
+                <Card.Img variant="top recommendation-img" src={buildBackdropUrl(props.data.backdrop_path)} />
+                <Card.Body>
+                    <Card.Title>{props.data.media_type === 'tv' ? props.data.name : props.data.title}</Card.Title>
+                    <Card.Text className='text-muted'>{props.data.overview}</Card.Text>
+                </Card.Body>
+            </Card>
+        </>
+    );
 
-        return (
-            <>
-                <Card key={this.props.index} className='recommendation-card shadow-sm my-1 mx-1' onClick={this.handleChangeFocus}>
-                    <Card.Img variant="top recommendation-img" src={this.buildBackdropUrl(recommendationData.backdrop_path)} />
-                    <Card.Body>
-                        <Card.Title>{recommendationData.media_type === 'tv' ? recommendationData.name : recommendationData.title}</Card.Title>
-                        <Card.Text className='text-muted'>{recommendationData.overview}</Card.Text>
-                    </Card.Body>
-                </Card>
-            </>
-        );
-    }
 }
-
-export default Recommendation;

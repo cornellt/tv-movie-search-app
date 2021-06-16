@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import './styles/ExpandedResult.css';
 import Person from './expanded_result/Person';
@@ -9,41 +10,31 @@ import Button from 'react-bootstrap/Button'; //sourced from https://react-bootst
 const SECRET_API_KEY = '8aaeb5fa2472dd850f957c983d0bb2e1';
 const API_BASE_URL = 'https://api.themoviedb.org/3/';
 
-class ExpandedResult extends React.Component {
-    state = {
+export default function ExpandedResult(props) {
+    const [state, setState] = useState({
         expandedData: {},
         recommendations: []
-    }
+    })
 
     //make AJAX request when component loads
-    componentDidMount() { this.fetchData(this.props.data); }
+    useEffect(() => {
+        fetchData(props.data);
+    });
 
     //handle changing "focused" ExpandedResult item (occurs when a recommendation is clicked on)
-    handleChangeFocus = (itemToFocus) => this.fetchData(itemToFocus);
+    const handleChangeFocus = (itemToFocus) => fetchData(itemToFocus);
 
     //handler for 'Return to Results' button; closes ExpandedResult and restores SearchResultsPage
-    handleReturnToResults = () => this.props.handleReturnToResults();
-
-    //return formatted String for each media_type
-    resultType() {
-        const resultType = this.state.expandedData.media_type;
-
-        if (resultType === 'movie')
-            return 'Movie';
-        else if (resultType === 'tv')
-            return 'TV Show';
-        else if (resultType === 'person')
-            return 'Person';
-    }
+    const handleReturnToResults = () => props.handleReturnToResults();
 
     //2nd AJAX Request: fetch full data for "expanded" Movie/TV Show/Person + appended recommendations data
-    async fetchData(data) {
+    async function fetchData(data) {
         const resultDetailsRequestUrl = API_BASE_URL + data.media_type + '/' + data.id + '?api_key=' + SECRET_API_KEY + '&language=en-US&append_to_response=recommendations,credits';
 
         try {
             const response = await axios.get(resultDetailsRequestUrl);
 
-            this.setState({
+            setState({
                 expandedData: response.data,
                 recommendations: (response.data.recommendations) ? response.data.recommendations.results : [] //recommendations only exist for Movies/TV Shows (so we only update recommendations if the data exists)
             });
@@ -55,30 +46,26 @@ class ExpandedResult extends React.Component {
         }
     }
 
-    renderType() {
-        let result = this.state.expandedData;
-        console.log(result);
+    function renderItem() {
+        let result = state.expandedData;
+
         if (result.birthday) {
-            return <Person data={this.state.expandedData} handleReturnToResults={this.handleReturnToResults} handleChangeFocus={this.handleChangeFocus} formatDate={this.props.formatDate} />;
+            return <Person data={state.expandedData} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
         }
         else if (result.title) {
-            return <Movie data={this.state.expandedData} recommendations={this.state.recommendations} handleReturnToResults={this.handleReturnToResults} handleChangeFocus={this.handleChangeFocus} formatDate={this.props.formatDate} />;
+            return <Movie data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
         }
         else {
-            return <TVShow data={this.state.expandedData} recommendations={this.state.recommendations} handleReturnToResults={this.handleReturnToResults} handleChangeFocus={this.handleChangeFocus} formatDate={this.props.formatDate} />;
+            return <TVShow data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
         }
     }
 
-    render() {
-        console.log(this.state.expandedData); //TODO: remove this
+    console.log(state.expandedData); //TODO: remove this
 
-        return (
-            <>
-                <Button className='mx-auto' variant="primary" onClick={this.props.handleReturnToResults}>Return to Search Results</Button>
-                {this.renderType()}
-            </>
-        );
-    }
+    return (
+        <>
+            <Button className='mx-auto' variant="primary" onClick={props.handleReturnToResults}>Return to Search Results</Button>
+            {renderItem()}
+        </>
+    );
 }
-
-export default ExpandedResult;
