@@ -16,10 +16,10 @@ export default function ExpandedResult(props) {
         recommendations: []
     })
 
-    //make AJAX request when component loads
+    //make initial AJAX request when component loads
     useEffect(() => {
         fetchData(props.data);
-    });
+    }, [props.data]);
 
     //handle changing "focused" ExpandedResult item (occurs when a recommendation is clicked on)
     const handleChangeFocus = (itemToFocus) => fetchData(itemToFocus);
