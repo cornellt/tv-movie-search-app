@@ -6,13 +6,13 @@ import Image from 'react-bootstrap/Image'; //sourced from https://react-bootstra
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500/';
 const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1'; //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
 
-class SearchResultItem extends React.Component {
+export default function SearchResultItem(props) {
     //handle expanding a search result item
-    handleClick = () => this.props.expandResult(this.props.data);
+    const handleClick = () => props.expandResult(props.data);
 
     //return formatted String for each media_type
-    resultType() {
-        const resultType = this.props.data.media_type;
+    function resultType() {
+        const resultType = props.data.media_type;
 
         if (resultType === 'movie')
             return 'Movie';
@@ -23,9 +23,9 @@ class SearchResultItem extends React.Component {
     }
 
     //build URL to access movie/tv poster or person portrait
-    buildPosterUrl() {
-        const result = this.props.data;
-        const resultType = this.props.data.media_type;
+    function buildPosterUrl() {
+        const result = props.data;
+        const resultType = props.data.media_type;
         const resultPosterPath = ((resultType === 'movie' || resultType === 'tv') ? result.poster_path : result.profile_path);
 
         //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/
@@ -33,7 +33,7 @@ class SearchResultItem extends React.Component {
     }
 
     //build URL for a Person's Popular Contribution based on provided poster_path
-    buildContributionPosterUrl(item) {
+    function buildContributionPosterUrl(item) {
         const resultType = item.data.media_type;
         const resultPosterPath = ((resultType === 'movie' || resultType === 'tv') ? item.data.poster_path : item.data.profile_path);
 
@@ -42,7 +42,7 @@ class SearchResultItem extends React.Component {
     }
 
     //build contributions array for 'Person' search result item
-    buildContributionList(result) {
+    function buildContributionList(result) {
         let popularContributions = [];
 
         result.known_for.forEach((item) => {
@@ -64,14 +64,14 @@ class SearchResultItem extends React.Component {
     }
 
     //build JSX object based on media_type of search result item
-    buildJsx() {
-        const result = this.props.data;
+    function buildJsx() {
+        const result = props.data;
         const resultType = result.media_type;
 
         const resultTitle = (resultType === 'movie') ? result.title : result.name;
 
         const resultRelease = (resultType === 'movie' || resultType === 'tv') ? (resultType === 'movie' ? result.release_date : result.first_air_date) : {};
-        const formattedReleaseDate = this.props.formatDate(resultRelease);
+        const formattedReleaseDate = props.formatDate(resultRelease);
 
         if (resultType === 'movie' || resultType === 'tv') {
             return (
@@ -83,7 +83,7 @@ class SearchResultItem extends React.Component {
             );
         }
         else if (resultType === 'person') {
-            const popularContributions = this.buildContributionList(result);
+            const popularContributions = buildContributionList(result);
             let contributionsJsx;
 
             if (popularContributions.length > 0) {
@@ -95,7 +95,7 @@ class SearchResultItem extends React.Component {
                             {popularContributions.map((item, index) =>
                                 <ListGroup.Item key={index} className='d-inline-block'>
                                     <div><em>{item.title}</em></div>
-                                    <Image className='mx-auto known-for-poster' src={this.buildContributionPosterUrl(item)}></Image>
+                                    <Image className='mx-auto known-for-poster' src={buildContributionPosterUrl(item)}></Image>
                                 </ListGroup.Item>
                             )}
                         </ListGroup>
@@ -114,17 +114,13 @@ class SearchResultItem extends React.Component {
         }
     }
 
-    render() {
-        return (
-            <ListGroup horizontal='lg' className='m-1 p-1 list-item mx-auto' onClick={this.handleClick}>
-                <ListGroup.Item>{this.resultType()}</ListGroup.Item>
-                <ListGroup.Item>
-                    <Image className='mx-auto small-poster' src={this.buildPosterUrl()} />
-                </ListGroup.Item>
-                {this.buildJsx()}
-            </ListGroup>
-        );
-    }
+    return (
+        <ListGroup horizontal='lg' className='m-1 p-1 list-item mx-auto' onClick={handleClick}>
+            <ListGroup.Item>{resultType()}</ListGroup.Item>
+            <ListGroup.Item>
+                <Image className='mx-auto small-poster' src={buildPosterUrl()} />
+            </ListGroup.Item>
+            {buildJsx()}
+        </ListGroup>
+    );
 }
-
-export default SearchResultItem;
