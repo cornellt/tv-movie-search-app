@@ -16,7 +16,7 @@ const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/u
 // const PLACEHOLDER_BACKDROP_URL = 'https://fakeimg.pl/640x360'; //placeholder sourced from https://fakeimg.pl/640x360
 
 export default function Person(props) {
-    const [combinedCredits, setCombinedCredits] = useState([]);
+    const [combinedCredits, setCombinedCredits] = useState([]); //hook used for state
 
     //make AJAX request when component fully loads
     useEffect(() => {

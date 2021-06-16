@@ -60,7 +60,7 @@ export default function ExpandedResult(props) {
         }
     }
 
-    console.log(state.expandedData); //TODO: remove this
+    //console.log(state.expandedData); //TODO: remove this
 
     return (
         <>
