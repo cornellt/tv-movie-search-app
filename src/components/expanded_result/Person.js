@@ -20,28 +20,29 @@ export default function Person(props) {
 
     //make AJAX request when component fully loads
     useEffect(() => {
+        //3rd AJAX Request: fetch combined TV and Movie credits for Person
+        async function fetchCombinedCredits(data) {
+            if (data.id) {
+                const combinedCreditsRequestUrl = API_BASE_URL + 'person/' + data.id + '/combined_credits?api_key=' + SECRET_API_KEY + '&language=en-US';
+
+                try {
+                    const response = await axios.get(combinedCreditsRequestUrl);
+
+                    setCombinedCredits(response.data.cast)
+                    console.log(response.data);
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+
         fetchCombinedCredits(props.data);
-    });
+    }, [props.data]);
 
     //build URL to access person's portrait
     function buildPosterUrl(path) {
         return path ? (POSTER_BASE_URL + path) : PLACEHOLDER_POSTER_URL;
-    }
-
-    //3rd AJAX Request: fetch combined TV and Movie credits for Person
-    async function fetchCombinedCredits(data) {
-        if (data.id) {
-            const combinedCreditsRequestUrl = API_BASE_URL + 'person/' + data.id + '/combined_credits?api_key=' + SECRET_API_KEY + '&language=en-US';
-
-            try {
-                const response = await axios.get(combinedCreditsRequestUrl);
-
-                setCombinedCredits(response.data.cast)
-            }
-            catch (error) {
-                console.log(error);
-            }
-        }
     }
 
     //build JSX for Popular Roles cards
