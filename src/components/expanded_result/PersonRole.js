@@ -9,7 +9,7 @@ export default function PersonRole(props) {
     const posterPath = roleData.poster_path;
 
     return (
-        <Card key={props.index} className='cast-card shadow-sm mx-1 my-1' onClick={() => props.handleChangeFocus(props.data)} id={roleData.id}>
+        <Card key={props.index} className='cast-card shadow-sm mx-1 my-1 bg-light' onClick={() => props.handleChangeFocus(props.data)} id={roleData.id}>
             <Card.Img className='cast-poster mt-1 mx-auto' variant="top" src={posterPath ? (POSTER_BASE_URL + posterPath) : PLACEHOLDER_POSTER_URL} />
             <Card.Body>
                 <Card.Title>{props.role}</Card.Title>

@@ -69,20 +69,24 @@ export default function Person(props) {
                 <Card.Footer>
                     <Row>
                         <Col>
-                            <Card.Title className='mx-auto'><h2>Acting Roles</h2></Card.Title>
-                            <CardGroup>
-                                {actingRoles.map((item, index) =>
-                                    <PersonRole key={index} data={item} role={item.character} handleChangeFocus={props.handleChangeFocus} />
-                                )}
-                            </CardGroup>
+                            <Card className='bg-light'>
+                                <Card.Title className='mx-auto mt-2 mb-0'><h2>Acting Roles</h2></Card.Title>
+                                <CardGroup>
+                                    {actingRoles.map((item, index) =>
+                                        <PersonRole key={index} data={item} role={item.character} handleChangeFocus={props.handleChangeFocus} />
+                                    )}
+                                </CardGroup>
+                            </Card>
                         </Col>
                         <Col>
-                            <Card.Title className='mx-auto'><h2>Production Roles</h2></Card.Title>
-                            <CardGroup>
-                                {productionRoles.map((item, index) =>
-                                    <PersonRole key={index} data={item} role={item.department} handleChangeFocus={props.handleChangeFocus} />
-                                )}
-                            </CardGroup>
+                            <Card className='bg-light'>
+                                <Card.Title className='mx-auto mt-2 mb-0'><h2>Production Roles</h2></Card.Title>
+                                <CardGroup>
+                                    {productionRoles.map((item, index) =>
+                                        <PersonRole key={index} data={item} role={item.department} handleChangeFocus={props.handleChangeFocus} />
+                                    )}
+                                </CardGroup>
+                            </Card>
                         </Col>
                     </Row>
                 </Card.Footer>
