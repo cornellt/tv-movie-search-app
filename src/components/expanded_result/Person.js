@@ -31,7 +31,6 @@ export default function Person(props) {
 
                     setCombinedCastCredits(response.data.cast);
                     setCrewCredits(response.data.crew);
-                    console.log(response.data.crew);
                 }
                 catch (error) {
                     console.log(error);
@@ -48,16 +47,17 @@ export default function Person(props) {
     }
 
     //build JSX for Popular Roles cards
-    function buildActingRolesList() {
-        if (combinedCastCredits.length > 0) {
+    function buildRolesList() {
+        if (combinedCastCredits.length > 0 || crewCredits.length > 0) {
             let actingRoles = [];
-            let productionRoles = [];
-
-            for (let i = 0; (i < 200) && (i < combinedCastCredits.length); i++) {
-                const item = combinedCastCredits[i];
-                actingRoles = [...actingRoles, item];
+            if (combinedCastCredits.length > 0) {
+                for (let i = 0; (i < 200) && (i < combinedCastCredits.length); i++) {
+                    const item = combinedCastCredits[i];
+                    actingRoles = [...actingRoles, item];
+                }
             }
 
+            let productionRoles = [];
             if (crewCredits.length > 0) {
                 for (let i = 0; (i < 200) && (i < crewCredits.length); i++) {
                     const item = crewCredits[i];
@@ -65,32 +65,63 @@ export default function Person(props) {
                 }
             }
 
-            return (
-                <Card.Footer>
-                    <Row>
-                        <Col>
-                            <Card className='bg-light'>
-                                <Card.Title className='mx-auto mt-2 mb-0'><h2>Acting Roles</h2></Card.Title>
-                                <CardGroup>
-                                    {actingRoles.map((item, index) =>
-                                        <PersonRole key={index} data={item} role={item.character} handleChangeFocus={props.handleChangeFocus} />
-                                    )}
-                                </CardGroup>
-                            </Card>
-                        </Col>
-                        <Col>
-                            <Card className='bg-light'>
-                                <Card.Title className='mx-auto mt-2 mb-0'><h2>Production Roles</h2></Card.Title>
-                                <CardGroup>
-                                    {productionRoles.map((item, index) =>
-                                        <PersonRole key={index} data={item} role={item.department} handleChangeFocus={props.handleChangeFocus} />
-                                    )}
-                                </CardGroup>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Card.Footer>
-            );
+            if (props.data.known_for_department === 'Acting') {
+                return (
+                    <Card.Footer>
+                        <Row>
+                            <Col>
+                                <Card className='bg-light'>
+                                    <Card.Title className='mx-auto mt-2 mb-0'><h2>Acting Roles</h2></Card.Title>
+                                    <CardGroup>
+                                        {actingRoles.map((item, index) =>
+                                            <PersonRole key={index} data={item} role={item.character} handleChangeFocus={props.handleChangeFocus} />
+                                        )}
+                                    </CardGroup>
+                                </Card>
+                            </Col>
+                            <Col>
+                                <Card className='bg-light'>
+                                    <Card.Title className='mx-auto mt-2 mb-0'><h2>Production Roles</h2></Card.Title>
+                                    <CardGroup>
+                                        {productionRoles.map((item, index) =>
+                                            <PersonRole key={index} data={item} role={item.department} handleChangeFocus={props.handleChangeFocus} />
+                                        )}
+                                    </CardGroup>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Card.Footer>
+                );
+            }
+            else {
+                return (
+                    <Card.Footer>
+                        <Row>
+                            <Col>
+                                <Card className='bg-light'>
+                                    <Card.Title className='mx-auto mt-2 mb-0'><h2>Production Roles</h2></Card.Title>
+                                    <CardGroup>
+                                        {productionRoles.map((item, index) =>
+                                            <PersonRole key={index} data={item} role={item.department} handleChangeFocus={props.handleChangeFocus} />
+                                        )}
+                                    </CardGroup>
+                                </Card>
+
+                            </Col>
+                            <Col>
+                                <Card className='bg-light'>
+                                    <Card.Title className='mx-auto mt-2 mb-0'><h2>Acting Roles</h2></Card.Title>
+                                    <CardGroup>
+                                        {actingRoles.map((item, index) =>
+                                            <PersonRole key={index} data={item} role={item.character} handleChangeFocus={props.handleChangeFocus} />
+                                        )}
+                                    </CardGroup>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Card.Footer>
+                );
+            }
         }
     }
 
@@ -147,7 +178,7 @@ export default function Person(props) {
                     <Button variant="primary" onClick={props.handleReturnToResults}>Return to Search Results</Button>
                 </Row>
             </Card>
-            {buildActingRolesList()}
+            {buildRolesList()}
         </Card>
     );
 
