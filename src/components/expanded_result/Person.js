@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import '../styles/expanded_result_styles/Person.css';
 import PersonCastRole from './PersonCastRole';
+import PersonCrewRole from './PersonCrewRole';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 import Col from 'react-bootstrap/Col'; //sourced from https://react-bootstrap.netlify.app/layout/grid/
@@ -16,20 +17,22 @@ const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/u
 // const PLACEHOLDER_BACKDROP_URL = 'https://fakeimg.pl/640x360'; //placeholder sourced from https://fakeimg.pl/640x360
 
 export default function Person(props) {
-    const [combinedCredits, setCombinedCredits] = useState([]); //hook used for state
+    const [combinedCastCredits, setCombinedCastCredits] = useState([]); //hook used for state
+    const [crewCredits, setCrewCredits] = useState([]);
 
     //make AJAX request when component fully loads
     useEffect(() => {
         //3rd AJAX Request: fetch combined TV and Movie credits for Person
-        async function fetchCombinedCredits(data) {
+        async function fetchCredits(data) {
             if (data.id) {
                 const combinedCreditsRequestUrl = API_BASE_URL + 'person/' + data.id + '/combined_credits?api_key=' + SECRET_API_KEY + '&language=en-US';
 
                 try {
                     const response = await axios.get(combinedCreditsRequestUrl);
 
-                    setCombinedCredits(response.data.cast)
-                    console.log(response.data);
+                    setCombinedCastCredits(response.data.cast);
+                    setCrewCredits(response.data.crew);
+                    console.log(response.data.crew);
                 }
                 catch (error) {
                     console.log(error);
@@ -37,7 +40,7 @@ export default function Person(props) {
             }
         }
 
-        fetchCombinedCredits(props.data);
+        fetchCredits(props.data);
     }, [props.data]);
 
     //build URL to access person's portrait
@@ -47,22 +50,44 @@ export default function Person(props) {
 
     //build JSX for Popular Roles cards
     function buildActingRolesList() {
-        if (combinedCredits.length > 0) {
+        if (combinedCastCredits.length > 0) {
             let actingRoles = [];
+            let productionRoles = [];
 
-            for (let i = 0; (i < 100) && (i < combinedCredits.length); i++) {
-                const item = combinedCredits[i];
+            for (let i = 0; (i < 200) && (i < combinedCastCredits.length); i++) {
+                const item = combinedCastCredits[i];
                 actingRoles = [...actingRoles, item];
+            }
+
+            if (crewCredits.length > 0) {
+                for (let i = 0; (i < 200) && (i < crewCredits.length); i++) {
+                    const item = crewCredits[i];
+                    productionRoles = [...productionRoles, item];
+                }
             }
 
             return (
                 <Card.Footer>
-                    <Card.Title className='mx-auto'><h2>Acting Roles</h2></Card.Title>
-                    <CardGroup>
-                        {actingRoles.map((item, index) =>
-                            <PersonCastRole key={index} data={item} handleChangeFocus={props.handleChangeFocus} />
-                        )}
-                    </CardGroup>
+
+                    <Row>
+                        <Col>
+                            <Card.Title className='mx-auto'><h2>Acting Roles</h2></Card.Title>
+                            <CardGroup>
+                                {actingRoles.map((item, index) =>
+                                    <PersonCastRole key={index} data={item} handleChangeFocus={props.handleChangeFocus} />
+                                )}
+                            </CardGroup>
+                        </Col>
+                        <Col>
+                            <Card.Title className='mx-auto'><h2>Production Roles</h2></Card.Title>
+                            <CardGroup>
+                                {productionRoles.map((item, index) =>
+                                    <PersonCrewRole key={index} data={item} handleChangeFocus={props.handleChangeFocus} />
+                                )}
+                            </CardGroup>
+                        </Col>
+                    </Row>
+
                 </Card.Footer>
             );
         }
