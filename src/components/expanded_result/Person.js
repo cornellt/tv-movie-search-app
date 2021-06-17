@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import '../styles/expanded_result_styles/Person.css';
-import PersonCastRole from './PersonCastRole';
-import PersonCrewRole from './PersonCrewRole';
+import PersonRole from './PersonRole';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 import Col from 'react-bootstrap/Col'; //sourced from https://react-bootstrap.netlify.app/layout/grid/
@@ -68,13 +67,12 @@ export default function Person(props) {
 
             return (
                 <Card.Footer>
-
                     <Row>
                         <Col>
                             <Card.Title className='mx-auto'><h2>Acting Roles</h2></Card.Title>
                             <CardGroup>
                                 {actingRoles.map((item, index) =>
-                                    <PersonCastRole key={index} data={item} handleChangeFocus={props.handleChangeFocus} />
+                                    <PersonRole key={index} data={item} role={item.character} handleChangeFocus={props.handleChangeFocus} />
                                 )}
                             </CardGroup>
                         </Col>
@@ -82,12 +80,11 @@ export default function Person(props) {
                             <Card.Title className='mx-auto'><h2>Production Roles</h2></Card.Title>
                             <CardGroup>
                                 {productionRoles.map((item, index) =>
-                                    <PersonCrewRole key={index} data={item} handleChangeFocus={props.handleChangeFocus} />
+                                    <PersonRole key={index} data={item} role={item.department} handleChangeFocus={props.handleChangeFocus} />
                                 )}
                             </CardGroup>
                         </Col>
                     </Row>
-
                 </Card.Footer>
             );
         }
