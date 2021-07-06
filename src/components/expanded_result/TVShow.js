@@ -1,6 +1,7 @@
 import React from 'react';
 import Recommendation from './Recommendation';
 import CastMember from './CastMember';
+import '../styles/expanded_result_styles/TVShow.css';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 import Col from 'react-bootstrap/Col'; //sourced from https://react-bootstrap.netlify.app/layout/grid/
@@ -42,15 +43,14 @@ export default function TVShow(props) {
 
     function buildCastMemberList() {
         if (props.data.credits && props.data.credits.cast.length > 0) {
-            console.log('test2');
             return (
                 <Card.Footer className='mx-1'>
-                    <Card.Title className='mx-auto'><h2>Characters</h2></Card.Title>
-                    <CardGroup>
+                    <Card.Title className='mx-auto'><h2>Cast</h2></Card.Title>
+                    <div className='cast-horiz-scroll d-flex flex-row flex-nowrap'>
                         {props.data.credits.cast.map((item, index) =>
                             <CastMember key={index} index={index} data={item} handleChangeFocus={props.handleChangeFocus} />
                         )}
-                    </CardGroup>
+                    </div>
                 </Card.Footer>
             );
         }

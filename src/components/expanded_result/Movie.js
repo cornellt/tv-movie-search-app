@@ -55,17 +55,16 @@ export default function Movie(props) {
 
     function buildCastMemberList() {
         if (props.data.credits && props.data.credits.cast.length > 0) {
-            console.log('test2');
-            const rawCastList = props.data.credits.cast.slice(0, 9);
+            const rawCastList = props.data.credits.cast.slice(0);
 
             return (
                 <Card.Footer className='mx-1'>
-                    <Card.Title className='mx-auto'><h2>Characters</h2></Card.Title>
-                    <CardGroup>
+                    <Card.Title className='mx-auto'><h2>Cast</h2></Card.Title>
+                    <div className='cast-horiz-scroll d-flex flex-row'>
                         {rawCastList.map((item, index) =>
                             <CastMember key={index} index={index} data={item} handleChangeFocus={props.handleChangeFocus} />
                         )}
-                    </CardGroup>
+                    </div>
                 </Card.Footer>
             );
         }
