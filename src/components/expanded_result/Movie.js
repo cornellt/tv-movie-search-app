@@ -1,5 +1,6 @@
 import React from 'react';
 import Recommendation from './Recommendation';
+import CastMember from './CastMember';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 import Col from 'react-bootstrap/Col'; //sourced from https://react-bootstrap.netlify.app/layout/grid/
@@ -45,6 +46,24 @@ export default function Movie(props) {
                     <CardGroup>
                         {props.recommendations.map((item, index) =>
                             <Recommendation key={index} index={index} data={item} handleChangeFocus={props.handleChangeFocus} />
+                        )}
+                    </CardGroup>
+                </Card.Footer>
+            );
+        }
+    }
+
+    function buildCastMemberList() {
+        if (props.data.credits && props.data.credits.cast.length > 0) {
+            console.log('test2');
+            const rawCastList = props.data.credits.cast.slice(0, 9);
+
+            return (
+                <Card.Footer className='mx-1'>
+                    <Card.Title className='mx-auto'><h2>Characters</h2></Card.Title>
+                    <CardGroup>
+                        {rawCastList.map((item, index) =>
+                            <CastMember key={index} index={index} data={item} handleChangeFocus={props.handleChangeFocus} />
                         )}
                     </CardGroup>
                 </Card.Footer>
@@ -124,7 +143,6 @@ export default function Movie(props) {
     return (
         <Card className='mx-auto my-3 outer-result-card'>
             <Card className='inner-result-card py-3 px-3'>
-                {/* <Button className='mx-auto' variant="primary" onClick={props.handleReturnToResults}>Return to Search Results</Button> */}
                 <Row>
                     <Col lg className='mx-2'>
                         <Card.Title className='mb-0 mt-3'>
@@ -146,6 +164,7 @@ export default function Movie(props) {
                     <Button variant="primary" onClick={props.handleReturnToResults}>Return to Search Results</Button>
                 </Row>
             </Card>
+            {buildCastMemberList()}
             {buildRecommendationSectionJsx()}
         </Card>
     );

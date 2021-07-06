@@ -14,7 +14,7 @@ export default function ExpandedResult(props) {
     const [state, setState] = useState({
         expandedData: {},
         recommendations: []
-    })
+    });
 
     //make initial AJAX request when component loads
     useEffect(() => {

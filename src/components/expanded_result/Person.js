@@ -158,7 +158,6 @@ export default function Person(props) {
     return (
         <Card className='mx-auto my-3 outer-result-card'>
             <Card className='inner-result-card py-3 px-3'>
-                {/* <Button className='mx-auto' variant="primary" onClick={props.handleReturnToResults}>Return to Search Results</Button> */}
                 <Row>
                     <Col lg className='my-3 ml-1'>
                         <Card.Title className='mb-0'>
@@ -169,7 +168,7 @@ export default function Person(props) {
                         </Card.Title>
                     </Col>
                     <Col lg className='mx-3'>
-                        <Card.Body>
+                        <Card.Body className='w-75 mx-auto'>
                             {bioData.biography}
                         </Card.Body>
                     </Col>

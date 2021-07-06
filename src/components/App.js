@@ -16,7 +16,7 @@ export default function App() {
 
   const [searchInput, setSearchInput] = useState({
     text: ''
-  })
+  });
 
   //handler function for changing input in search box, either on homepage or on the navbar
   const handleChangeSearchInput = (input) => {
