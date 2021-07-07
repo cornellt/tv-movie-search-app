@@ -14,8 +14,8 @@ export default function CastMember(props) {
         <Card key={props.index} className='mini-cast-card shadow-sm mr-1 bg-light d-flex' onClick={() => props.handleChangeFocus(props.data)} id={roleData.id}>
             <Card.Img className='mini-cast-poster mt-1 mx-auto' variant="top" src={posterPath ? (POSTER_BASE_URL + posterPath) : PLACEHOLDER_POSTER_URL} />
             <Card.Body>
-                <Card.Text>
-                    {roleData.character}
+                <Card.Text className='wrap-text'>
+                    {props.cast ? roleData.job : roleData.character}
                     <br />
                     <span className='text-muted'>{roleData.media_type === 'movie' ? roleData.title : roleData.name}</span>
                 </Card.Text>

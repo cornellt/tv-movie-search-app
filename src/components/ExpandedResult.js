@@ -36,7 +36,8 @@ export default function ExpandedResult(props) {
 
             setState({
                 expandedData: response.data,
-                recommendations: (response.data.recommendations) ? response.data.recommendations.results : [] //recommendations only exist for Movies/TV Shows (so we only update recommendations if the data exists)
+                recommendations: (response.data.recommendations) ? response.data.recommendations.results : [], //recommendations only exist for Movies/TV Shows (so we only update recommendations if the data exists)
+                type: data.media_type
             });
 
             window.scrollTo(0, 0);
@@ -47,12 +48,12 @@ export default function ExpandedResult(props) {
     }
 
     function renderItem() {
-        let result = state.expandedData;
+        const type = state.type;
 
-        if (result.birthday) {
+        if (type === 'person') {
             return <Person data={state.expandedData} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
         }
-        else if (result.title) {
+        else if (type === 'movie') {
             return <Movie data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
         }
         else {

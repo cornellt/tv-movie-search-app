@@ -72,6 +72,17 @@ export default function Movie(props) {
         }
     }
 
+    function buildCrewMemberList() {
+        if (props.data.credits && props.data.credits.crew.length > 0) {
+            return (
+                <Card.Footer className='mx-1'>
+                    <Card.Title className='mx-auto'><h2>Crew</h2></Card.Title>
+                    <CastCrewSlider rawCastList={props.data.credits.crew} handleChangeFocus={props.handleChangeFocus} />
+                </Card.Footer>
+            );
+        }
+    }
+
     //if budget data exists, build and return formatted budget info
     function buildBudgetJsx(result) {
         if (result.budget && result.budget > 0) {
@@ -166,6 +177,7 @@ export default function Movie(props) {
                 </Row>
             </Card>
             {buildCastMemberList()}
+            {buildCrewMemberList()}
             {buildRecommendationSectionJsx()}
         </Card>
     );

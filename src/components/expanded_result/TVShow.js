@@ -51,6 +51,17 @@ export default function TVShow(props) {
         }
     }
 
+    function buildCrewMemberList() {
+        if (props.data.credits && props.data.credits.crew.length > 0) {
+            return (
+                <Card.Footer className='mx-1'>
+                    <Card.Title className='mx-auto'><h2>Crew</h2></Card.Title>
+                    <CastCrewSlider rawCastList={props.data.credits.crew} handleChangeFocus={props.handleChangeFocus} />
+                </Card.Footer>
+            );
+        }
+    }
+
     //Build react-bootstrap Table for TV Show seasons info
     function buildSeasonsTable() {
         if (props.data.seasons) {
@@ -156,6 +167,7 @@ export default function TVShow(props) {
                 </Row>
             </Card>
             {buildCastMemberList()}
+            {buildCrewMemberList()}
             {buildRecommendationSectionJsx()}
         </Card>
     );
