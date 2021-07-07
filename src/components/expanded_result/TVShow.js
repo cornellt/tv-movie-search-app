@@ -41,11 +41,11 @@ export default function TVShow(props) {
     }
 
     function buildCastMemberList() {
-        if (props.data.credits && props.data.credits.cast.length > 0) {
+        if (props.data.aggregate_credits && props.data.aggregate_credits.cast.length > 0) {
             return (
                 <Card.Footer className='mx-1'>
                     <Card.Title className='mx-auto'><h2>Cast</h2></Card.Title>
-                    <CastCrewSlider rawCastList={props.data.credits.cast} handleChangeFocus={props.handleChangeFocus} />
+                    <CastCrewSlider rawCastList={props.data.aggregate_credits.cast} handleChangeFocus={props.handleChangeFocus} />
                 </Card.Footer>
             );
         }
@@ -57,6 +57,14 @@ export default function TVShow(props) {
                 <Card.Footer className='mx-1'>
                     <Card.Title className='mx-auto'><h2>Crew</h2></Card.Title>
                     <CastCrewSlider rawCastList={props.data.credits.crew} handleChangeFocus={props.handleChangeFocus} />
+                </Card.Footer>
+            );
+        }
+        else if (props.data.aggregate_credits && props.data.aggregate_credits.crew.length > 0) {
+            return (
+                <Card.Footer className='mx-1'>
+                    <Card.Title className='mx-auto'><h2>Crew</h2></Card.Title>
+                    <CastCrewSlider rawCastList={props.data.aggregate_credits.crew} handleChangeFocus={props.handleChangeFocus} />
                 </Card.Footer>
             );
         }

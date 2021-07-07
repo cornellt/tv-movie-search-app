@@ -28,7 +28,7 @@ export default function ExpandedResult(props) {
 
     //2nd AJAX Request: fetch full data for "expanded" Movie/TV Show/Person + appended recommendations data
     async function fetchData(data) {
-        const resultDetailsRequestUrl = API_BASE_URL + data.media_type + '/' + data.id + '?api_key=' + SECRET_API_KEY + '&language=en-US&append_to_response=recommendations,credits';
+        const resultDetailsRequestUrl = API_BASE_URL + data.media_type + '/' + data.id + '?api_key=' + SECRET_API_KEY + '&language=en-US&append_to_response=recommendations,credits,aggregate_credits';
 
         try {
             const response = await axios.get(resultDetailsRequestUrl);
@@ -60,7 +60,7 @@ export default function ExpandedResult(props) {
         }
     }
 
-    console.log(state.expandedData); //TODO: remove this
+    //console.log(state.expandedData); //TODO: remove this
 
     return (
         <>

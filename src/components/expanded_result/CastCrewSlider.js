@@ -9,9 +9,16 @@ export default function CastCrewSlider(props) {
         slider.current.scrollTo(0, 0);
     });
 
+    function limitCastCrewSize(arr) {
+        const sizeLimit = 50;
+        return arr.slice(0, sizeLimit);
+    }
+
+    const slicedCastCrew = limitCastCrewSize(props.rawCastList);
+
     return (
         <div ref={slider} className='cast-horiz-scroll d-flex flex-row'>
-            {props.rawCastList.map((item, index) =>
+            {slicedCastCrew.map((item, index) =>
                 <CastMember key={index} index={index} data={item} handleChangeFocus={props.handleChangeFocus} cast={item.job ? true : false} />
             )}
         </div>
