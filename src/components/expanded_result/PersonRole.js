@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
+import '../styles/expanded_result_styles/PersonRole.css';
 
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 const PLACEHOLDER_POSTER_URL = 'https://i2.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1'; //poster placeholder sourced from https://www.theatrecr.org/poster-placeholder/

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Recommendation from './Recommendation';
-import CastMember from './CastMember';
+import CastCrewSlider from './CastCrewSlider';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 import Col from 'react-bootstrap/Col'; //sourced from https://react-bootstrap.netlify.app/layout/grid/
@@ -16,6 +16,12 @@ export default function Movie(props) {
         const resultPosterPath = props.data.poster_path;
         return resultPosterPath ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
     }
+
+    useEffect(() => {
+        if (buildCastMemberList()) {
+            window.scrollTo(0, 0);
+        }
+    })
 
     //Build genre String + JSX for TV Show/Movie
     function buildGenreList(data) {
@@ -60,11 +66,7 @@ export default function Movie(props) {
             return (
                 <Card.Footer className='mx-1'>
                     <Card.Title className='mx-auto'><h2>Cast</h2></Card.Title>
-                    <div className='cast-horiz-scroll d-flex flex-row'>
-                        {rawCastList.map((item, index) =>
-                            <CastMember key={index} index={index} data={item} handleChangeFocus={props.handleChangeFocus} />
-                        )}
-                    </div>
+                    <CastCrewSlider rawCastList={rawCastList} handleChangeFocus={props.handleChangeFocus} />
                 </Card.Footer>
             );
         }
