@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles/ExpandedResult.css';
 import Person from './expanded_result/Person';
@@ -61,7 +60,7 @@ export default function ExpandedResult(props) {
         }
     }
 
-    //console.log(state.expandedData); //TODO: remove this
+    console.log(state.expandedData); //TODO: remove this
 
     return (
         <>
