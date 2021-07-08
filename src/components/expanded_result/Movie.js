@@ -17,12 +17,6 @@ export default function Movie(props) {
         return resultPosterPath ? (POSTER_BASE_URL + resultPosterPath) : PLACEHOLDER_POSTER_URL;
     }
 
-    useEffect(() => {
-        if (buildCastMemberList()) {
-            window.scrollTo(0, 0);
-        }
-    })
-
     //Build genre String + JSX for TV Show/Movie
     function buildGenreList(data) {
         if (data.genres && data.genres.length > 0) {
