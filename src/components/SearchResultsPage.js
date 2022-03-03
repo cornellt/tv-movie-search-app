@@ -9,7 +9,7 @@ export default function SearchResultsPage(props) {
     const [state, setState] = useState({
         isShowingExpandedResult: false,
         expandedResultData: {}
-    })
+    });
 
     //handler function for SearchResultItem onClick. Results in ExpandedResult being displayed
     const handleExpandResult = (item) => {

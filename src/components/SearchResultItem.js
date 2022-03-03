@@ -93,7 +93,7 @@ export default function SearchResultItem(props) {
                         <hr />
                         <ListGroup horizontal>
                             {popularContributions.map((item, index) =>
-                                <ListGroup.Item key={index} className='d-inline-block'>
+                                <ListGroup.Item key={index} className='d-inline-block bg-light shadow'>
                                     <div><em>{item.title}</em></div>
                                     <Image className='mx-auto known-for-poster' src={buildContributionPosterUrl(item)}></Image>
                                 </ListGroup.Item>
@@ -118,7 +118,7 @@ export default function SearchResultItem(props) {
         <ListGroup horizontal='lg' className='m-1 p-1 list-item mx-auto' onClick={handleClick}>
             <ListGroup.Item>{resultType()}</ListGroup.Item>
             <ListGroup.Item>
-                <Image className='mx-auto small-poster' src={buildPosterUrl()} />
+                <Image className='mx-auto small-poster shadow' src={buildPosterUrl()} />
             </ListGroup.Item>
             {buildJsx()}
         </ListGroup>

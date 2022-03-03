@@ -14,7 +14,7 @@
 .recommendation-card {
     cursor: pointer;
     min-width: 18rem !important;
-    max-width: 25rem;
+    max-width: 18rem !important;
     border-radius: 4px !important;
 }
 

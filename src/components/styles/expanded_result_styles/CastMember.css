@@ -1,0 +1,21 @@
+.mini-cast-poster {
+    max-width: 10rem !important;
+    height: auto;
+    object-fit: cover;
+    border-radius: 3px !important;
+}
+
+.mini-cast-card {
+    cursor: pointer;
+    min-width: 14rem !important;
+    border-radius: 4px !important;
+}
+
+.mini-cast-card:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.wrap-text {
+    overflow: hidden;
+}

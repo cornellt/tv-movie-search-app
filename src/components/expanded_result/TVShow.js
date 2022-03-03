@@ -1,5 +1,6 @@
 import React from 'react';
 import Recommendation from './Recommendation';
+import CastCrewSlider from './CastCrewSlider';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
 import Card from 'react-bootstrap/Card'; //sourced from https://react-bootstrap.netlify.app/components/cards/
 import Col from 'react-bootstrap/Col'; //sourced from https://react-bootstrap.netlify.app/layout/grid/
@@ -34,6 +35,36 @@ export default function TVShow(props) {
                             <Recommendation key={index} index={index} data={item} handleChangeFocus={props.handleChangeFocus} />
                         )}
                     </CardGroup>
+                </Card.Footer>
+            );
+        }
+    }
+
+    function buildCastMemberList() {
+        if (props.data.aggregate_credits && props.data.aggregate_credits.cast.length > 0) {
+            return (
+                <Card.Footer className='mx-1'>
+                    <Card.Title className='mx-auto'><h2>Cast</h2></Card.Title>
+                    <CastCrewSlider rawCastList={props.data.aggregate_credits.cast} handleChangeFocus={props.handleChangeFocus} />
+                </Card.Footer>
+            );
+        }
+    }
+
+    function buildCrewMemberList() {
+        if (props.data.credits && props.data.credits.crew.length > 0) {
+            return (
+                <Card.Footer className='mx-1'>
+                    <Card.Title className='mx-auto'><h2>Crew</h2></Card.Title>
+                    <CastCrewSlider rawCastList={props.data.credits.crew} handleChangeFocus={props.handleChangeFocus} />
+                </Card.Footer>
+            );
+        }
+        else if (props.data.aggregate_credits && props.data.aggregate_credits.crew.length > 0) {
+            return (
+                <Card.Footer className='mx-1'>
+                    <Card.Title className='mx-auto'><h2>Crew</h2></Card.Title>
+                    <CastCrewSlider rawCastList={props.data.aggregate_credits.crew} handleChangeFocus={props.handleChangeFocus} />
                 </Card.Footer>
             );
         }
@@ -122,7 +153,6 @@ export default function TVShow(props) {
     return (
         <Card className='mx-auto my-3 outer-result-card'>
             <Card className='inner-result-card py-3 px-3'>
-                {/* <Button className='mx-auto' variant="primary" onClick={props.handleReturnToResults}>Return to Search Results</Button> */}
                 <Row>
                     <Col lg className='mx-2'>
                         <Card.Title className='mb-0 mt-3'>
@@ -144,6 +174,8 @@ export default function TVShow(props) {
                     <Button variant="primary" onClick={props.handleReturnToResults}>Return to Search Results</Button>
                 </Row>
             </Card>
+            {buildCastMemberList()}
+            {buildCrewMemberList()}
             {buildRecommendationSectionJsx()}
         </Card>
     );

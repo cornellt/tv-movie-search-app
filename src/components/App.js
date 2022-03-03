@@ -11,14 +11,8 @@ const API_BASE_URL = 'https://api.themoviedb.org/3/';
 export default function App() {
   const [state, setState] = useState({
     isShowingResults: false,
-    searchData: {},
-    searchBoxInput: ''
+    searchData: {}
   });
-
-  //handler function for changing input in search box, either on homepage or on the navbar
-  const handleChangeSearchInput = (input) => {
-    setState({ searchBoxInput: input });
-  }
 
   //handler function for "TV & Movie Searching App" link on NavigationBar; returns to HomePage
   const returnToHomePage = () => {
@@ -28,12 +22,21 @@ export default function App() {
     });
   }
 
+  const [searchInput, setSearchInput] = useState({
+    text: ''
+  });
+
+  //handler function for changing input in search box, either on homepage or on the navbar
+  const handleChangeSearchInput = (input) => {
+    setSearchInput({ text: input });
+  }
+
   //1st AJAX Request: fetch array of search results based on user-provided query string
   const searchRequest = async (query) => { //arrow function used because this is a CALLBACK FUNCTION. i.e., it's passed as a prop to a rendered Component and called by that child. This impacts the context of 'this' if we don't use an arrow function.
     returnToHomePage(); //always return to home page before processing search query to ensure NavigationBar search box behaves as expected
 
     if (query !== '') { //make AJAX request only if the query is not empty
-      setState({ searchBoxInput: '' });
+      setSearchInput({ text: '' });
       const searchRequestUrl = API_BASE_URL + 'search/multi?api_key=' + SECRET_API_KEY + '&language=en-US&query=' + query + '&page=1&include_adult=false';
 
       try {
@@ -55,12 +58,12 @@ export default function App() {
     if (state.isShowingResults)
       return <SearchResultsPage searchData={state.searchData} />;
     else
-      return <HomePage searchRequest={searchRequest} onSearchBoxChange={handleChangeSearchInput} inputText={state.searchBoxInput} />;
+      return <HomePage searchRequest={searchRequest} onSearchBoxChange={handleChangeSearchInput} inputText={searchInput.text} />;
   }
 
   return (
     <>
-      <NavigationBar searchRequest={searchRequest} returnToHomePage={returnToHomePage} onSearchBoxChange={handleChangeSearchInput} inputText={state.searchBoxInput} />
+      <NavigationBar searchRequest={searchRequest} returnToHomePage={returnToHomePage} onSearchBoxChange={handleChangeSearchInput} inputText={searchInput.text} />
       {displayPage()}
     </>
   );

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles/ExpandedResult.css';
 import Person from './expanded_result/Person';
@@ -14,12 +13,12 @@ export default function ExpandedResult(props) {
     const [state, setState] = useState({
         expandedData: {},
         recommendations: []
-    })
+    });
 
-    //make AJAX request when component loads
+    //make initial AJAX request when component loads
     useEffect(() => {
         fetchData(props.data);
-    });
+    }, [props.data]); //only re-run useEffect if props.data changes
 
     //handle changing "focused" ExpandedResult item (occurs when a recommendation is clicked on)
     const handleChangeFocus = (itemToFocus) => fetchData(itemToFocus);
@@ -29,14 +28,15 @@ export default function ExpandedResult(props) {
 
     //2nd AJAX Request: fetch full data for "expanded" Movie/TV Show/Person + appended recommendations data
     async function fetchData(data) {
-        const resultDetailsRequestUrl = API_BASE_URL + data.media_type + '/' + data.id + '?api_key=' + SECRET_API_KEY + '&language=en-US&append_to_response=recommendations,credits';
+        const resultDetailsRequestUrl = API_BASE_URL + data.media_type + '/' + data.id + '?api_key=' + SECRET_API_KEY + '&language=en-US&append_to_response=recommendations,credits,aggregate_credits';
 
         try {
             const response = await axios.get(resultDetailsRequestUrl);
 
             setState({
                 expandedData: response.data,
-                recommendations: (response.data.recommendations) ? response.data.recommendations.results : [] //recommendations only exist for Movies/TV Shows (so we only update recommendations if the data exists)
+                recommendations: (response.data.recommendations) ? response.data.recommendations.results : [], //recommendations only exist for Movies/TV Shows (so we only update recommendations if the data exists)
+                type: data.media_type
             });
 
             window.scrollTo(0, 0);
@@ -47,12 +47,12 @@ export default function ExpandedResult(props) {
     }
 
     function renderItem() {
-        let result = state.expandedData;
+        const type = state.type;
 
-        if (result.birthday) {
+        if (type === 'person') {
             return <Person data={state.expandedData} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
         }
-        else if (result.title) {
+        else if (type === 'movie') {
             return <Movie data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
         }
         else {
@@ -60,7 +60,7 @@ export default function ExpandedResult(props) {
         }
     }
 
-    console.log(state.expandedData); //TODO: remove this
+    //console.log(state.expandedData); //TODO: remove this
 
     return (
         <>
