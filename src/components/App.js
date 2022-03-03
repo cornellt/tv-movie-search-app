@@ -14,6 +14,14 @@ export default function App() {
     searchData: {}
   });
 
+  //handler function for "TV & Movie Searching App" link on NavigationBar; returns to HomePage
+  const returnToHomePage = () => {
+    setState({
+      isShowingResults: false,
+      searchData: {}
+    });
+  }
+
   const [searchInput, setSearchInput] = useState({
     text: ''
   });
@@ -21,14 +29,6 @@ export default function App() {
   //handler function for changing input in search box, either on homepage or on the navbar
   const handleChangeSearchInput = (input) => {
     setSearchInput({ text: input });
-  }
-
-  //handler function for "TV & Movie Searching App" link on NavigationBar; returns to HomePage
-  const returnToHomePage = () => {
-    setState({
-      isShowingResults: false,
-      searchData: {}
-    });
   }
 
   //1st AJAX Request: fetch array of search results based on user-provided query string
