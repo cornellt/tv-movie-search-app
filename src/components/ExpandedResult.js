@@ -12,13 +12,14 @@ const API_BASE_URL = 'https://api.themoviedb.org/3/';
 export default function ExpandedResult(props) {
     const [state, setState] = useState({
         expandedData: {},
-        recommendations: []
+        recommendations: [],
+        type: ''
     });
 
     //make initial AJAX request when component loads
     useEffect(() => {
         fetchData(props.data);
-    }, [props.data]); //only re-run useEffect if props.data changes
+    }, [props.data]);
 
     //handle changing "focused" ExpandedResult item (occurs when a recommendation is clicked on)
     const handleChangeFocus = (itemToFocus) => fetchData(itemToFocus);
@@ -49,18 +50,19 @@ export default function ExpandedResult(props) {
     function renderItem() {
         const type = state.type;
 
-        if (type === 'person') {
-            return <Person data={state.expandedData} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
-        }
-        else if (type === 'movie') {
-            return <Movie data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
-        }
-        else {
-            return <TVShow data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
+        console.log(type)
+
+        switch(type) {
+            case 'person':
+                return <Person data={state.expandedData} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
+            case 'movie':
+                return <Movie data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
+            case 'tv':
+                return <TVShow data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
+            default:
+                return <></>
         }
     }
-
-    //console.log(state.expandedData); //TODO: remove this
 
     return (
         <>
