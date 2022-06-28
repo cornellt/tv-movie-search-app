@@ -1,4 +1,4 @@
-# TV & Movie Searching App
+# [TV & Movie Searching App](https://cornellt.github.io/tv-movie-search-app/)
 
 ## Features
 - Search for/view relevant information regarding any:
