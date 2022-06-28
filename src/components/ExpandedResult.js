@@ -36,7 +36,7 @@ export default function ExpandedResult(props) {
 
             setState({
                 expandedData: response.data,
-                recommendations: (response.data.recommendations) ? response.data.recommendations.results : [], //recommendations only exist for Movies/TV Shows (so we only update recommendations if the data exists)
+                recommendations: (response.data.recommendations) ? response.data.recommendations.results : [], //recommendations only exist for Movies/TV Shows (so I only update recommendations if the data exists)
                 type: data.media_type
             });
 

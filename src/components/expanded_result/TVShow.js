@@ -73,8 +73,8 @@ export default function TVShow(props) {
     //Build react-bootstrap Table for TV Show seasons info
     function buildSeasonsTable() {
         if (props.data.seasons) {
-            //const variables cannot be reassigned BUT are NOT immutable -- we can still mutate the array's properties
-            const seasonArray = props.data.seasons.filter((item) => item.season_number !== 0);
+            //const variables cannot be reassigned BUT are NOT immutable -- I can still mutate the array's properties
+            const seasonArray = props.data.seasons.filter((item) => item.season_number !== 0); //I am excluding the 0th season because those are 'extra episodes'
 
             return (
                 <Table striped bordered size='sm' className='my-3'>
