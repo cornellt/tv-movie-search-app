@@ -28,9 +28,9 @@ export default function TVShow(props) {
     function buildRecommendationSectionJsx() {
         if (props.recommendations.length > 0) { //only build Recommendation section if recommendations exist
             return (
-                <Card.Footer className='mx-1'>
+                <Card.Footer className='mx-auto'>
                     <Card.Title className='mx-auto'><h2>You Might Also Be Interested In</h2></Card.Title>
-                    <CardGroup>
+                    <CardGroup className='mx-auto'>
                         {props.recommendations.map((item, index) =>
                             <Recommendation key={index} index={index} data={item} handleChangeFocus={props.handleChangeFocus} />
                         )}
@@ -73,12 +73,8 @@ export default function TVShow(props) {
     //Build react-bootstrap Table for TV Show seasons info
     function buildSeasonsTable() {
         if (props.data.seasons) {
-            const seasonArray = []; //const variables cannot be reassigned BUT are NOT immutable -- we can still mutate the array's properties
-
-            props.data.seasons.forEach(element => {
-                if (element.season_number !== 0) //we ignore the 0th season's data because those are 'extra' episodes
-                    seasonArray.push(element); //append season to end of seasonArray
-            });
+            //const variables cannot be reassigned BUT are NOT immutable -- we can still mutate the array's properties
+            const seasonArray = props.data.seasons.filter((item) => item.season_number !== 0);
 
             return (
                 <Table striped bordered size='sm' className='my-3'>
@@ -108,14 +104,14 @@ export default function TVShow(props) {
     //Build genre String + JSX for TV Show/Movie
     function buildGenreList(data) {
         if (data.genres && data.genres.length > 0) {
-            let genreString = 'Genre(s): '
+            let genreString = data.genres.length == 1 ? 'Genre: ' : 'Genres: ';
 
             for (const genre of data.genres) {
                 genreString += (genre.name + ', ');
             }
 
-            genreString = genreString.substr(0, genreString.length - 2);
-            return <h5>{genreString}</h5>;
+            genreString = genreString.substring(0, genreString.length - 2);
+            return <h5 className='text-muted'>{genreString}</h5>;
         }
     }
 
@@ -127,11 +123,9 @@ export default function TVShow(props) {
             title: result.name,
             primaryInfo: (
                 <>
-                    <h3>First Air Date: {props.formatDate(result.first_air_date)}</h3>
-                    {inProd ? <h3>Recent Air Date: {props.formatDate(result.last_air_date)}</h3> : <h3>Final Air Date: {props.formatDate(result.last_air_date)}</h3>}
                     <h4 className={color}>{inProd ? 'Still in production' : 'No longer in production'}</h4>
-                    {buildGenreList(result)}
-                    <br />
+                    <h3>First Episode: {props.formatDate(result.first_air_date)}</h3>
+                    {inProd ? <h3>Latest Episode: {props.formatDate(result.last_air_date)}</h3> : <h3>Last Episode: {props.formatDate(result.last_air_date)}</h3>}
                     {buildHomepageJsx(result)}
                     <hr />
                     <h4>Overview</h4>
@@ -164,6 +158,7 @@ export default function TVShow(props) {
                         <Card.Body>
                             <h1 className='display-4'>{compiledShowData.title}</h1>
                             <h5 className='text-muted'>TV Show</h5>
+                            {buildGenreList(props.data)}
                             <hr />
                             {compiledShowData.primaryInfo}
                             {compiledShowData.overviewData} {/* includes show overview and seasons table*/}

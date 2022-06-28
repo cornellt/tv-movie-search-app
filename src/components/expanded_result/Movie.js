@@ -26,7 +26,7 @@ export default function Movie(props) {
                 genreString += (genre.name + ', ');
             }
 
-            genreString = genreString.substr(0, genreString.length - 2);
+            genreString = genreString.substring(0, genreString.length - 2);
             return <h5>{genreString}</h5>;
         }
     }
