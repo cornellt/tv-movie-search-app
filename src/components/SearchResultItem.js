@@ -118,8 +118,20 @@ export default function SearchResultItem(props) {
 
             return (
                 <>
-                    <ListGroup.Item className='w-25'><span className='text-muted'>Name</span><hr />{resultTitle}</ListGroup.Item>
-                    <ListGroup.Item className='w-25'><span className='text-muted'>Known for</span><hr />{result.known_for_department}</ListGroup.Item>
+                    <ListGroup.Item className='w-25'>
+                        <Stack gap={5}>
+                            <div>
+                                <span className='text-muted'>Name</span>
+                                <hr />
+                                {resultTitle}
+                            </div>
+                            <div>
+                                <span className='text-muted'>Known for</span>
+                                <hr />
+                                {result.known_for_department}
+                            </div>
+                        </Stack>
+                    </ListGroup.Item>
                     {contributionsJsx}
                 </>
             );
@@ -127,7 +139,7 @@ export default function SearchResultItem(props) {
     }
 
     return (
-        <ListGroup horizontal='lg' className='m-1 p-1 list-item mx-auto' onClick={handleClick}>
+        <ListGroup horizontal='lg' className='m-1 p-1 list-item' onClick={handleClick}>
             <ListGroup.Item>{resultType()}</ListGroup.Item>
             <ListGroup.Item>
                 <Image className='mx-auto small-poster shadow' src={buildPosterUrl()} />
