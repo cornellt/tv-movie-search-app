@@ -51,13 +51,10 @@ export default function SearchResultsPage(props) {
     }
 
     return (
-        <>
-            <Container fluid className='results-section mx-auto'>
-                {buildPageJsx()}
-                <div className='footer-text'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</div>
-                <Image className='attribution-logo pt-2' src='https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg' />
-            </Container>
-        </>
+        <Container fluid className='results-section mx-auto'>
+            {buildPageJsx()}
+            <div className='footer-text'>This product uses the <a className='tmdb-link' href='https://www.themoviedb.org/documentation/api' rel='noreferrer' target='_blank'>TMDb API</a> but is not endorsed or certified by TMDb.</div>
+            <Image className='attribution-logo pt-2' src='https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg' />
+        </Container>
     );
-
 }

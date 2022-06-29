@@ -78,7 +78,7 @@ export default function SearchResultItem(props) {
             return (
                 <>
                     <ListGroup.Item className='w-25'>
-                        <Stack gap={5}>
+                        <Stack gap={3}>
                             <div>
                                 <span className='text-muted'>Title</span>
                                 <hr />
@@ -119,7 +119,7 @@ export default function SearchResultItem(props) {
             return (
                 <>
                     <ListGroup.Item className='w-25'>
-                        <Stack gap={5}>
+                        <Stack gap={3}>
                             <div>
                                 <span className='text-muted'>Name</span>
                                 <hr />
