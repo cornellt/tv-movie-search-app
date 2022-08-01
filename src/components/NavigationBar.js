@@ -15,11 +15,13 @@ export default function NavigationBar(props) {
     //Navbar component sourced from react-bootstrap
     return (
         <Navbar fixed='top' bg='dark' variant='dark' className='mb-3'>
-            <Navbar.Brand className='home-button' onClick={props.returnToHomePage}>Home</Navbar.Brand>
-            <Nav className='mr-auto'>
+            <Nav className='me-auto mx-3'>
+                <Navbar.Brand className='home-button' onClick={props.returnToHomePage}>Home</Navbar.Brand>
             </Nav>
-            <SearchBox size='md' handleSubmit={handleSubmit} onSearchBoxChange={props.onSearchBoxChange} inputText={props.inputText} />
-            <Button className='mx-2' variant='outline-secondary' onClick={handleSubmit}>Search</Button>
+            <Nav className='mx-3'>
+                <SearchBox size='md' handleSubmit={handleSubmit} onSearchBoxChange={props.onSearchBoxChange} inputText={props.inputText} />
+                <Button className='mx-2' variant='outline-secondary' onClick={handleSubmit}>Search</Button>
+            </Nav>
         </Navbar >
     );
 }

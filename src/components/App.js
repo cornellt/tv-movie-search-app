@@ -14,6 +14,14 @@ export default function App() {
     searchData: {}
   });
 
+  //handler function for "TV & Movie Searching App" link on NavigationBar; returns to HomePage
+  const returnToHomePage = () => {
+    setState({
+      isShowingResults: false,
+      searchData: {}
+    });
+  }
+
   const [searchInput, setSearchInput] = useState({
     text: ''
   });
@@ -23,16 +31,8 @@ export default function App() {
     setSearchInput({ text: input });
   }
 
-  //handler function for "TV & Movie Searching App" link on NavigationBar; returns to HomePage
-  const returnToHomePage = () => {
-    setState({
-      isShowingResults: false,
-      searchData: {}
-    });
-  }
-
   //1st AJAX Request: fetch array of search results based on user-provided query string
-  const searchRequest = async (query) => { //arrow function used because this is a CALLBACK FUNCTION. i.e., it's passed as a prop to a rendered Component and called by that child. This impacts the context of 'this' if we don't use an arrow function.
+  const searchRequest = async (query) => { //arrow function used because this is a CALLBACK FUNCTION. i.e., it's passed as a prop to a rendered Component and called by that child. This impacts the context of 'this' if I don't use an arrow function.
     returnToHomePage(); //always return to home page before processing search query to ensure NavigationBar search box behaves as expected
 
     if (query !== '') { //make AJAX request only if the query is not empty

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Recommendation from './Recommendation';
 import CastCrewSlider from './CastCrewSlider';
 import Button from 'react-bootstrap/Button'; //sourced from https://react-bootstrap.netlify.app/components/buttons/
@@ -26,7 +26,7 @@ export default function Movie(props) {
                 genreString += (genre.name + ', ');
             }
 
-            genreString = genreString.substr(0, genreString.length - 2);
+            genreString = genreString.substring(0, genreString.length - 2);
             return <h5>{genreString}</h5>;
         }
     }

@@ -12,7 +12,8 @@ const API_BASE_URL = 'https://api.themoviedb.org/3/';
 export default function ExpandedResult(props) {
     const [state, setState] = useState({
         expandedData: {},
-        recommendations: []
+        recommendations: [],
+        type: ''
     });
 
     //make initial AJAX request when component loads
@@ -35,7 +36,7 @@ export default function ExpandedResult(props) {
 
             setState({
                 expandedData: response.data,
-                recommendations: (response.data.recommendations) ? response.data.recommendations.results : [], //recommendations only exist for Movies/TV Shows (so we only update recommendations if the data exists)
+                recommendations: (response.data.recommendations) ? response.data.recommendations.results : [], //recommendations only exist for Movies/TV Shows (so I only update recommendations if the data exists)
                 type: data.media_type
             });
 
@@ -49,18 +50,19 @@ export default function ExpandedResult(props) {
     function renderItem() {
         const type = state.type;
 
-        if (type === 'person') {
-            return <Person data={state.expandedData} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
-        }
-        else if (type === 'movie') {
-            return <Movie data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
-        }
-        else {
-            return <TVShow data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
+        console.log(type)
+
+        switch(type) {
+            case 'person':
+                return <Person data={state.expandedData} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
+            case 'movie':
+                return <Movie data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
+            case 'tv':
+                return <TVShow data={state.expandedData} recommendations={state.recommendations} handleReturnToResults={handleReturnToResults} handleChangeFocus={handleChangeFocus} formatDate={props.formatDate} />;
+            default:
+                return <></>
         }
     }
-
-    //console.log(state.expandedData); //TODO: remove this
 
     return (
         <>

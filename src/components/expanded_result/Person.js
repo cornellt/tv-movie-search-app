@@ -47,6 +47,7 @@ export default function Person(props) {
     //build JSX for Popular Roles cards
     function buildRolesList() {
         if (combinedCastCredits.length > 0 || crewCredits.length > 0) {
+            //TODO: replace for-loop with map
             let actingRoles = [];
             if (combinedCastCredits.length > 0) {
                 for (let i = 0; (i < 200) && (i < combinedCastCredits.length); i++) {
@@ -55,6 +56,7 @@ export default function Person(props) {
                 }
             }
 
+            //TODO: replace for-loop with map
             let productionRoles = [];
             if (crewCredits.length > 0) {
                 for (let i = 0; (i < 200) && (i < crewCredits.length); i++) {
@@ -136,9 +138,7 @@ export default function Person(props) {
                 (<>
                     <h3>Biography</h3>
                     <hr />
-                    <Card.Text>
-                        {result.biography}
-                    </Card.Text>
+                    <Card.Text>{result.biography}</Card.Text>
                 </>)
         }
         if (result.birthday) {
