@@ -84,6 +84,7 @@ export default function SearchResultItem(props) {
                                 <hr />
                                 <em>{resultTitle}</em>
                             </div>
+                            <br/>
                             <div>
                                 <span className='text-muted'>Release Date</span>
                                 <hr />
@@ -139,7 +140,7 @@ export default function SearchResultItem(props) {
     }
 
     return (
-        <ListGroup horizontal='lg' className='m-1 p-1 list-item' onClick={handleClick}>
+        <ListGroup horizontal='lg' className='m-1 p-1 list-item w-100' onClick={handleClick}>
             <ListGroup.Item>{resultType()}</ListGroup.Item>
             <ListGroup.Item>
                 <Image className='mx-auto small-poster shadow' src={buildPosterUrl()} />
