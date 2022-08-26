@@ -1,5 +1,5 @@
 # TV & Movie Searching App
-[Link to App](https://cornellt.github.io/tv-movie-search-app/)
+[Link to App (Hosted on GitHub Pages)](https://cornellt.github.io/tv-movie-search-app/)
 
 ## Features
 - Search for/view relevant information regarding any:
